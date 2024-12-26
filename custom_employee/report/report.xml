@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <record id="action_report_employee" model="ir.actions.report">
+            <field name="name">Employee Report</field>
+            <field name="model">wb.employee</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">custom_employee.report_employee_document</field>
+            <field name="report_file">custom_employee.report_employee_document</field>
+            <field name="binding_model_id" ref="model_wb_employee"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

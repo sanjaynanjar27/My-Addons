@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ProductSalePopupTemplate" owl="1">
+        <div class="popup product-sale-popup">
+            <div class="popup-header">
+                <h2>Product Sale Order Details</h2>
+            </div>
+            <div class="popup-content">
+                <table class="order-lines-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-if="state.saleOrderLines.length === 0">
+                            <tr>
+                                <td colspan="4" class="no-data">No sale order lines found.</td>
+                            </tr>
+                        </t>
+                        <t t-else="">
+                            <t t-foreach="state.saleOrderLines" t-as="line" t-key="line.id">
+                                <tr>
+                                    <td><t t-esc="line.display_name" /></td>
+                                    <td><t t-esc="line.product_uom_qty" /></td>
+                                    <td><t t-esc="line.price_unit" /></td>
+                                    <td><t t-esc="getTotalPrice(line.price_unit, line.product_uom_qty)" /></td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <div class="popup-footer">
+                <button class="btn btn-secondary" t-on-click="closePopup">Close</button>
+            </div>
+        </div>
+    </t>
+</templates>

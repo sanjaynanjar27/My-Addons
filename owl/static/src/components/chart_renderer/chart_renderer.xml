@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is chart custom component to create new cart where we
+use this tag chart we can display graph or any custom data -->
+
+<templates xml:space="preserve">
+    <t t-name="owl.ChartRenderer" owl="1">
+        <canvas t-ref="chart"/>
+    </t>
+</templates>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="hello_odoo_view_form" model="ir.ui.view">
+            <field name="name">Simple Views</field>
+            <field name="model">hello.odoo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="birth_date"/>
+                            <field name="gender"/>
+                            <field name="email"/>
+                            <field name="age" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="show_odoo_msg" model="ir.actions.act_window">
+            <field name="name">show msg</field>
+            <field name="res_model">hello.odoo</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="hello_odoo_root_menu"
+                  name="Hello odoo"/>
+
+        <menuitem id="child_hello_odoo"
+                  name="Show Data"
+                  parent="hello_odoo_root_menu"
+                  action="show_odoo_msg"/>
+    </data>
+</odoo>

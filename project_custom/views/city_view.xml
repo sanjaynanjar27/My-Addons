@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_state_city_view" model="ir.actions.act_window">
+        <field name="name">City</field>
+        <field name="res_model">res.state.cities</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

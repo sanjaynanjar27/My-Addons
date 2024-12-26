@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="school_student_tree_view" model="ir.ui.view">
+        <field name="name">School Tree View</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="reference"/>
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="father_name"/>
+                <field name="phone" widget="phone"/>
+                <field name="email" widget="email"/>
+                <field name="birth_date" widget="date"/>
+                <field name="age"/>
+                <field name="amount_paid"/>
+                <field name="sem"/>
+                <field name="school_ids"/>
+                <field name="hobby_ids" widget="many2many_tags"/>
+                <field name="state" decoration-success="state == 'Done'"
+                       decoration-info="state == 'draft'" decoration-danger="state == 'Failed'"
+                       decoration-warning="state == 'in_process'" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+    <record id="school_student_form_view" model="ir.ui.view">
+        <field name="name">School Student Form View</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm"
+                            string="Confirm"
+                            type="object"
+                            class="btn-primary" invisible="state == 'Failed'"/>
+
+                    <button name="action_register"
+                            string="Register"
+                            type="object"
+                            class="btn-secondary" invisible="state == 'Failed'"/>
+
+                    <button name="action_cancel"
+                            string="Reject"
+                            type="object"
+                            class="btn-danger"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,Done" on_change="1"/>
+                </header>
+                <sheet class="o_form_sheet position-relative">
+                    <div class="row justify-content-between position-relative w-100 m-0 mb-2">
+                        <div class="oe_title mw-75 ps-0 pe-2">
+                            <h1 class="d-flex flex-row align-items-center">
+                                <field name="reference"
+                                       style="font-size: min(4vw, 2.6rem);" readonly="1"/>
+                            </h1>
+                            <h2>
+                                <field name="name" placeholder="Student's Name" required="True"/>
+                            </h2>
+                        </div>
+                        <div class="oe_avatar position-absolute" style="right: 0; top: 0; width: 120px; height: 120px;">
+                            <field name="photo" widget="image" options="{'zoom': true, 'zoom_delay': 1000}"
+                                   style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"/>
+                        </div>
+                    </div>
+                    <group name="Student Details">
+                        <group string="Personal Details">
+                            <field name="gender" widget="radio"/>
+                            <field name="father_name"/>
+                            <field name="email"/>
+                            <field name="phone" placeholder="+91 7272727272"/>
+                            <field name="birth_date" placeholder="YYYY/MM/DD"/>
+                            <field name="age" string="Age"/>
+                            <field name="hobby_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                        </group>
+                        <group string="School Data">
+                            <field name="medium" widget="selection"/>
+                            <field name="school_ids" widget="many2one_avatar"/>
+                            <field name="principal_name"/>
+                            <field name="sem" widget="selection_badge"/>
+                            <field name="total_fees" string="School Fees"/>
+                            <field name="amount_paid"/>
+                            <field name="due_fees"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="student_view_activity" model="ir.ui.view">
+        <field name="name">student.view.activity</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <form string="Student Activity">
+                <field name="name" display="full" class="o_text_block o_text_bold"/>
+                <div class="m-1">
+                    <field name="due_fees" widget="monetary"/>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <field name="father_name" muted="1" display="full" class="o_text_block"/>
+                    <div class="m-1">
+                        <field name="state" widget="badge" decoration-info="state == 'in_progress'"
+                               decoration-success="state == 'Done'"/>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="school_student_search_view" model="ir.ui.view">
+        <field name="name">Student Search</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="reference"/>
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="father_name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="birth_date"/>
+                <field name="age"/>
+                <field name="sem"/>
+                <field name="school_ids"/>
+                <group expand="1" string="Group By">
+                    <filter name="group_by_medium"
+                            string="Schools"
+                            context="{'group_by' : 'school_ids'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="school_student_graph_view" model="ir.ui.view">
+        <field name="name">Students Graph view</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <graph string="Student Analysis">
+                <field name="sem"/>
+                <field name="gender"/>
+            </graph>
+        </field>
+    </record>
+    <record id="action_copy_phone_to_mobile" model="ir.actions.server">
+        <field name="name">Copy phone to mobile</field>
+        <field name="model_id" ref="model_school_student"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_copy_phone_to_mobile()
+        </field>
+    </record>
+    <!-- Creating Automated Template For User Registering New Data -->
+    <record id="email_template_school_enrollment" model="mail.template">
+        <field name="name">School Enrollment Notification</field>
+        <field name="model_id" ref="model_school_student"/>
+        <field name="subject">New Student Enrollment</field>
+        <field name="body_html"><![CDATA[
+        <p>Hello <t t-out="object.school_ids.name if object.school_ids else 'Unknown School'">Unknown School</t>,</p>
+        <p>The following student has enrolled in your school:</p>
+        <p><strong>Name:</strong> <t t-out="object.name or 'N/A'">N/A</t></p>
+        <p><strong>Email:</strong> <t t-out="object.email or 'N/A'">N/A</t></p>
+        <p><strong>Phone:</strong> <t t-out="object.phone or 'N/A'">N/A</t></p>
+        <p><strong>Father's Name:</strong> <t t-out="object.father_name or 'N/A'">N/A</t></p>
+        <p>Regards,</p>
+        <p>Odoo System</p>
+    ]]></field>
+    </record>
+
+    <record model='ir.actions.act_url' id='action_third_party'>
+        <field name='name'>Third-Party Apps</field>
+        <field name='url'>https://apps.odoo.com/apps/modules</field>
+        <field name="target">self</field>
+    </record>
+
+    <record id="school_server" model="ir.actions.server">
+        <field name="model_id" ref="model_school_student"/>
+        <field name="name">School - Send Enrollment Email</field>
+        <field name="state">code</field>
+        <field name="code">
+            if record.school_ids:
+            template = env.ref('SM.email_template_school_enrollment')
+            template.send_mail(record.id, force_send=True)
+            _logger.info("Sending email for student %s, School: %s", record.name, record.school_ids.name)
+        </field>
+    </record>
+    <record id="school_student_action" model="ir.actions.act_window">
+        <field name="name">School Students</field>
+        <field name="res_model">school.student</field>
+        <field name="view_mode">tree,form,graph,search,kanban,activity</field>
+    </record>
+
+</odoo>
+
+
+

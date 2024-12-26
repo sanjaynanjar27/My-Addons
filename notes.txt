@@ -1,0 +1,269 @@
+=== Fix Formatting of js files manually ===
+
+npx prettier --write .
+
+
+_________________________________________________
+Payment Method error
+----------------------------------------------
+line 695, in _check_payment_method_line_id
+    raise ValidationError(_("Please define a payment method line on your payment."))
+odoo.exceptions.ValidationError: Please define a payment method line on your payment.
+
+Solution : Changes in journal payment method to cash where we have to set payment method
+debug mode : setting > Point of sale > Accounting > Default Journals > Select Any and move to internal link > select cash if getting this error
+Or
+- Check Payment Method is published or not
+- Settings > Payment Method > WebSite > Configure Demo > if Unpublished change to published
+
+
+just select journal in pos
+
+----------------------------------------------
+
+/home/hp/workspace/odoo_17/odoo/addons/mail/models/mail_thread.py
+
+fnames = self._track_get_fields().intersection(fields_iter)
+
+Getting error while creating new Menufacture value set this fname defination
+
+fnames = set(self._track_get_fields()) & set(fields_iter)
+
+----------------------------------------------
+
+// contains should not be renamed otherwise it would break existing customers
+// customizations.
+
+$o-user-website-values: map-merge(
+  $o-user-website-values,
+  o-map-omit(( ))
+);
+
+
+If you are encountering issues with the `create_link` function and you cannot use the version from `sms/tools/sms_tools.py`, you can create this function in your custom module or an appropriate shared utility file within your Odoo setup. Here's how to proceed:
+
+---
+
+### **Where to Create the Function**
+
+1. **In Your Custom Module**
+   - Locate or create a `tools` directory in your custom module.
+   - Add a new Python file, e.g., `tools.py` (if it doesn't already exist).
+   - Define the `create_link` function in this file.
+
+   Example structure:
+   ```
+   my_module/
+   ├── __init__.py
+   ├── __manifest__.py
+   ├── tools/
+   │   ├── __init__.py
+   │   └── tools.py
+   ```
+
+   **Example: `tools.py`**
+   ```python
+   from odoo.tools import html_escape
+
+   def create_link(url, link_text=None):
+       """Generates an HTML link."""
+       link_text = link_text or url
+       return f'<a href="{html_escape(url)}">{html_escape(link_text)}</a>'
+   ```
+
+   Then, import it in the module where it’s needed:
+   ```python
+   from my_module.tools.tools import create_link
+   ```
+
+---
+
+2. **In a Shared Utility Module**
+   If the function will be reused across multiple modules, consider placing it in a common shared module.
+
+   For example:
+   - Add it to `odoo/tools/misc.py` (if appropriate and consistent with Odoo’s conventions).
+   - Or create a new file in a shared `addons/tools` module.
+
+   Example for `odoo/tools/misc.py`:
+   ```python
+   def create_link(url, link_text=None):
+       """Generates an HTML link."""
+       link_text = link_text or url
+       return f'<a href="{html_escape(url)}">{html_escape(link_text)}</a>'
+   ```
+
+   Update the import accordingly:
+   ```python
+   from odoo.tools.misc import create_link
+   ```
+
+---
+
+### **Steps to Integrate**
+1. Create the function in the appropriate location (custom module or shared utility file).
+2. Update the import statements in files using `create_link` to reference your implementation.
+3. Restart the Odoo server to apply changes:
+   ```bash
+   python3 odoo-bin -c your_config_file.conf
+   ```
+
+---
+
+### **Clear Cache**
+Clear the Python cache to prevent any old imports from interfering:
+```bash
+find . -name "*.pyc" -delete
+```
+
+---
+
+This approach ensures modularity and avoids conflicts while maintaining clean code organization. Let me know if you need further assistance with setting this up!
+
+___
+Attempts to approach session revoke function:
+
+ #
+        # # Print all the records for the user
+        # for record in user_records:
+        #     if self.session_id == record.session_id:
+        #         print(f"Session ID: {record.session_id}, User: {record.user_id.name}")
+
+        # ResDeviceLog = self.env['res.device.log']
+        #
+        # # Print out the ResDeviceLog model for debugging purposes
+        # print(ResDeviceLog)
+        #
+        # # Step 1: Identify unique session identifiers for the devices to revoke
+        # session_id = list(set(device.session_id for device in self))
+        #
+        # # Step 2: If you want to search by user_id, you can do this:
+        # user_id = self.user_id.id  # Access the user_id for the current device log entry (or use another way to identify the user)
+        #
+        # # Step 3: Search for devices belonging to the same user and matching session identifiers
+        # revoked_devices = ResDeviceLog.sudo().search([
+        #     ('user_id', '=', user_id),  # Filter by user_id
+        # ])
+        #
+        # # Step 4: Mark the revoked sessions in the `res.device.log` model
+        # revoked_devices.write({'revoked': True})
+        #
+        # # Step 5: Log the revocation action
+        # _logger.info("User %d revokes devices with session identifiers: %s", self.env.uid,
+        #              ', '.join(session_id))
+        #
+        # # Step 6: Log out the user from the current session
+        # request.session.logout()  # Log out the user, regardless of 'is_current'
+        # _logger.info("User %d logged out after device revocation.", self.env.uid)
+        # Step 1: Identify unique session identifiers for the devices to revoke
+        # session_id = list(set(device.session_id for device in self))
+        #
+        # # Step 2: Mark the revoked sessions in the `res.device.log` model
+        # ResDeviceLog = self.env['res.device.log']
+        # revoked_devices = ResDeviceLog.sudo().search([('session_id', 'in', session_id)])
+        # revoked_devices.write({'revoked': True})
+        #
+        # # Step 3: Log the revocation action
+        # _logger.info("User %d revokes devices with session identifiers: %s", self.env.uid,
+        #              ', '.join(session_id))
+        #
+        # # Step 4: Log out the user from the current session
+        # request.session.logout()  # Log out the user, regardless of 'is_current'
+        # _logger.info("User %d logged out after device revocation.", self.env.uid)
+        #
+        # # Step 5: Log out the user no matter what (whether the session is marked as 'current' or not)
+        # request.session.logout()
+        # _logger.info("User %d logged out after device revocation.", self.env.uid)
+
+
+
+
+class Users(models.Model):
+    _inherit = ["res.users"]
+    session_count = fields.Integer(string="Session Time Out",default=604800,copy=False)
+
+
+    def action_logout_all_devices(self):
+        """Logs out the user from all devices by revoking their sessions."""
+        user = request.session.uid
+        print(user)
+        user_login_history = request.env['res.users.logger'].search([('session_id', '!=', False)])
+        current_session = request.session.sid  # Current logged-in user
+        print("Current Session",current_session)
+        for record in user_login_history:
+            if record.username.id == user:
+                request.session.sid = record.session_id
+                request.session.logout()
+                print("History : ",record.username)
+
+         # print("Current session : ", this_session)
+        # print("current session : ", cookies)
+        # user_id = self.name  # Replace with the actual user ID you're looking for
+        # user_sessions = request.env['res.users.logger'].sudo().search([('username', '=', user_id),('session_id', '!=', False)])
+        #
+        # for session in user_sessions:
+        #     print(f"Logging out session: {session.session_id} and clearing session_id.")
+        #     session.write({'session_id': False})  # Clear the session_id
+        #
+        # return "All sessions cleared and users logged out"
+
+        # active_pos_sessions = request.env['pos.session'].search([('state', '=', 'opened')])
+        # request.session.touch()
+        # print(request.session)
+        # session_info_d = request.env['ir.http'].session_info()
+        # print("Session Infor :",session_info_d)
+        #
+        # # Print details of each active session
+        # for pos_session in active_pos_sessions:
+        #     print(
+        #         f"POS Session ID: {pos_session.id}, Cashier: {pos_session.user_id.name}, Start Time: {pos_session.start_at}")
+
+        # sessions = request.env['ir.sessions'].search([('state', '=', 'active')])
+        # for session in sessions:
+        #     print(f"Session ID: {session.id}, User: {session.user_id.name}, Session Start: {session.create_date}")
+        # user_id = self
+        # current_user = request.session.uid
+        # print("Self : ",user_id.id)
+        # print("Self : ",current_user)
+        #
+        # if user_id:
+        #     print("Logging out the current user...")
+        #     if user_id.id == current_user:
+        #         request.session.logout()
+        #     # Step 2: Deactivate the user temporarily
+        #     user_id.write({'active': False})
+        #     self.env.cr.commit()  # Commit the change to the database immediately
+        #
+        #     print(f"User {user_id.name} is temporarily deactivated.")
+        #
+        #     # Step 3: Wait for a short period (e.g., 4 seconds)
+        #     time.sleep(4)
+        #
+        #     # Step 4: Reactivate the user after a delay
+        #     user_id.write({'active': True})
+        #     self.env.cr.commit()  # Commit the change to the database immediately
+        #
+        #     print(f"User {user_id.name} has been reactivated.")
+        #
+        # else:
+        #     raise ValueError("User not found.")
+
+
+    # display_name, name_get, name_create, name_search
+
+"[project_custom] Add models, views, sequence, and SQL constraints
+
+- Created the 'project_custom' module from scratch.
+- Added models, fields, and views based on project requirements.
+- Implemented a sequence to manage project records.
+- Added SQL constraints to ensure data integrity.
+- Defined proper views for managing and displaying project data.
+
+
+[owl_task] Implement dynamic list management with useEffect, useState, and useService
+
+- Implemented an Owl JS task to manage a dynamic list.
+- Used `useState` for storing the list of items.
+- Used `useEffect` to update the list based on certain conditions.
+- Created custom service with `useService` to handle list operations (add/remove items).
+- Enabled adding and removing items from the list dynamically with state management."

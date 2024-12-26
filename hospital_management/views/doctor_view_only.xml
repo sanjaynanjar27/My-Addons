@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hospital_doctor_kanban_view_only" model="ir.ui.view">
+        <field name="name">hospital.doctor.kanban.view.only</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <kanban class="o_hr_employee_kanban">
+                <field name="id"/>
+                <field name="image" on_change="1"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                            <t t-if="record.image.raw_value">
+                                <field name="image" class="o_kanban_image_fill_left d-block" widget="image"
+                                       options="{'zoom': true, 'zoom_delay': 1000}"/>
+                            </t>
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name" placeholder="Doctor's Name" on_change="1"/>
+                                        </strong>
+                                        <span class="o_kanban_record_subtitle">
+                                            <field name="expertise"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li t-if="record.experience_display.raw_value" class="o_text_overflow">
+                                        <i class="fa fa-fw me-2 fa-user text-primary" title="Experience"/>
+                                        <field name="experience_display"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+                <style>
+                    .o_kanban_image_container {
+                    width: 100%; /* Make the container full width */
+                    height: 200px; /* Set a fixed height or adjust as needed */
+                    overflow: hidden; /* Hide overflow */
+                    position: relative; /* Positioning for absolute child elements */
+                    }
+
+                    .o_kanban_image_fill_left {
+                    position: absolute; /* Allow positioning */
+                    top: 50%; /* Center vertically */
+                    left: 50%; /* Center horizontally */
+                    width: auto; /* Maintain aspect ratio */
+                    height: 100%; /* Fit to height of container */
+                    max-width: none; /* Disable max width */
+                    transform: translate(-50%, -50%); /* Center the image */
+                    }
+                </style>
+            </kanban>
+        </field>
+    </record>
+    <record id="action_hospital_doctor_view_only" model="ir.actions.act_window">
+        <field name="name">Doctor</field>
+        <field name="res_model">hospital.doctor</field>
+        <field name="view_mode">kanban</field>
+    </record>
+</odoo>

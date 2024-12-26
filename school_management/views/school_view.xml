@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="school_tree_view" model="ir.ui.view">
+            <field name="name">school.tree.view</field>
+            <field name="model">school.school2</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" decoration-bf="1"/>
+                    <field name="city" decoration-success="1"/>
+                    <field name="principal"/>
+                    <field name="address"/>
+                    <field name="medium_ids"/>
+                    <field name="state" decoration-success="state == 'confirmed'"
+                           decoration-info="state == 'registered'" decoration-danger="state == 'cancelled'"
+                           decoration-warning="state == 'in_process'" widget="badge"/>
+                </tree>
+            </field>
+        </record>
+        <record id="school_form_view" model="ir.ui.view">
+            <field name="name">school.form.view</field>
+            <field name="model">school.school2</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_confirm"
+                                string="Confirm"
+                                type="object"
+                                class="btn-primary" invisible="state == 'cancelled'"/>
+
+                        <button name="action_register"
+                                string="Register"
+                                type="object"
+                                class="btn-secondary" invisible="state == 'cancelled'"/>
+
+                        <button name="action_cancel"
+                                string="Reject"
+                                type="object"
+                                class="btn-danger"/>
+
+                        <button name="student_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <field name="state"
+                               widget="statusbar"
+                               statusbar_visible="registered,in_process,confirmed"
+                               on_change="1"/>
+
+                    </header>
+                    <sheet>
+                        <div class="o_widget o_widget_web_ribbon">
+                            <div class="ribbon ribbon-top-right">
+                                <span class="text-bg-success" title="">Approved</span>
+                            </div>
+                            <div class="on_button_box" name="button_box">
+                                <button name="open_students" ae="open_students" type="object" class="oe_stat_button"
+                                        icon="fa-user" invisible="0">
+                                    <field name="student_ids" widget="statinfo" string="Students"/>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between position-relative w-100 m-0 mb-2">
+                            <div class="oe_title mw-75 ps-0 pe-2">
+                                <h1 class="d-flex flex-row align-items-center">
+                                    <field name="name" placeholder="School Name"
+                                           style="font-size: min(4vw, 2.6rem);"/>
+                                </h1>
+                                <h2>
+                                    <field name="principal" placeholder="Principal's Name"/>
+                                </h2>
+                            </div>
+                            <div class="oe_avatar position-absolute"
+                                 style="right: 0; top: 0; width: 120px; height: 120px;">
+                                <field name="photo" widget="image"
+                                       style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"/>
+
+                            </div>
+                        </div>
+                        <group string="About School">
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="city"/>
+                            <field name="address"/>
+                            <field name="medium_ids"/>
+                            <field name="fees_amount"/>
+                            <button name="action_test" string="See Courses" type="object"
+                                    confirm="Do you want to redirect to Page?"/>
+                        </group>
+                        <notebook>
+                            <page name="Students">
+                                <group string="Student Information">
+                                    <field name="student_ids">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="email"/>
+                                            <field name="father_name"/>
+                                            <field name="phone"/>
+                                            <field name="sem"/>
+                                            <field name="due_fees"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page name="Employees">
+                                <group string="Employees In School">
+                                    <field name="employee_ids">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="joining_date"/>
+                                            <field name="designation"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="school_search_view" model="ir.ui.view">
+            <field name="name">School Search View</field>
+            <field name="model">school.school2</field>
+            <field name="arch" type="xml">
+                <search string="Schools">
+                    <field name="name"/>
+                    <field name="city"/>
+                    <field name="principal"/>
+                    <field name="address"/>
+                    <field name="medium_ids"/>
+                    <field name="state"/>
+                    <filter string="English Medium" name="english_medium_schools"
+                            domain="[('medium_ids.name', '=', 'English')]"/>
+                    <filter string="Hindi Medium" name="english_medium_schools"
+                            domain="[('medium_ids.name', '=', 'Hindi')]"/>
+                    <filter string="Gujarati Medium" name="english_medium_schools"
+                            domain="[('medium_ids.name', '=', 'Gujarati')]"/>
+                    <filter string="Rejected Schools" name="rejected_schools"
+                            domain="[('state','=','cancelled')]"/>
+                    <filter string="Selection In Process" name="in_process_schools"
+                            domain="[('state','=','in_process')]"/>
+                    <filter string="Selected Schools" name="selected_schools"
+                            domain="[('state','=','confirmed')]"/>
+                    <filter string="Pending Requests Schools" name="new_schools"
+                            domain="[('state','=','registered')]"/>
+                    <group expand="1" string="Group By">
+                        <filter name="group_by_medium"
+                                string="Streams"
+                                context="{'group_by' : 'medium_ids'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="medium_ids" string="Streams" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+        <record id="school_kanban_view" model="ir.ui.view">
+            <field name="name">school.kanban.view</field>
+            <field name="model">school.school2</field>
+            <field name="arch" type="xml">
+                <kanban create="false" class="o_hr_employee_kanban">
+                    <field name="id"/>
+                    <field name="photo" on_change="1"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                                <t t-if="record.photo.raw_value">
+                                    <field name="photo" class="o_kanban_image_fill_left d-block" widget="image"
+                                           options="{'zoom': true, 'zoom_delay': 1000}"/>
+                                </t>
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="name" placeholder="School's Name" on_change="1"/>
+                                            </strong>
+                                            <span class="o_kanban_record_subtitle">
+                                                <field name="city"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <li t-if="record.city.raw_value" class="o_text_overflow">
+                                            <i class="fa fa-fw me-2 fa-user text-primary" title="Principal"/>
+                                            <field name="principal"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                    <style>
+                        .o_kanban_image_container {
+                        width: 100%; /* Make the container full width */
+                        height: 200px; /* Set a fixed height or adjust as needed */
+                        overflow: hidden; /* Hide overflow */
+                        position: relative; /* Positioning for absolute child elements */
+                        }
+
+                        .o_kanban_image_fill_left {
+                        position: absolute; /* Allow positioning */
+                        top: 50%; /* Center vertically */
+                        left: 50%; /* Center horizontally */
+                        width: auto; /* Maintain aspect ratio */
+                        height: 100%; /* Fit to height of container */
+                        max-width: none; /* Disable max width */
+                        transform: translate(-50%, -50%); /* Center the image */
+                        }
+                    </style>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="school_view_activity" model="ir.ui.view">
+            <field name="name">school.view.activity</field>
+            <field name="model">school.school2</field>
+            <field name="arch" type="xml">
+                <form string="School Activity">
+                    <field name="name" display="full" class="o_text_block o_text_bold"/>
+                    <div class="m-1">
+                        <field name="fees_amount" widget="monetary"/>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <field name="principal" muted="1" display="full" class="o_text_block"/>
+                        <div class="m-1">
+                            <field name="state" widget="badge" decoration-info="state == 'registered'"
+                                   decoration-success="state == 'confirmed'" />
+                        </div>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="school_action" model="ir.actions.act_window">
+            <field name="name">School</field>
+            <field name="res_model">school.school2</field>
+            <field name="view_mode">kanban,tree,form,graph,search,activity</field>
+            <field name="context">{'edit':1,'create':1,'delete':1}</field>
+        </record>
+
+        <!-- Server Actions To Cancel Rejection of school -->
+
+        <record id="school_closed_server_action" model="ir.actions.server">
+            <field name="name">Re Consider School Closed</field>
+            <field name="model_id" ref="model_school_school2"/>
+            <field name="binding_model_id" ref="model_school_school2"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.action_closed()
+            </field>
+        </record>
+
+
+        <record id="school_content_automated" model="ir.cron">
+            <field name="name">School Content : Status Updates :</field>
+            <field name="model_id" ref="model_school_school2"/>
+            <field name="state">code</field>
+            <field name="code">model.update_state()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="school_report_form" model="ir.ui.view">
+            <field name="name">School Report Selection</field>
+            <field name="model">school.pdf.report.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="school_ids"/>
+                        </group>
+                        <footer>
+                            <button name="action_print_report" string="Print PDF" type="object" class="btn-primary"/>
+                            <button special="cancel" data-hotkey="x" string="Cancel" class="btn-danger"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="menu_school_pdf_report_print" model="ir.actions.act_window">
+            <field name="name">PDF Report</field>
+            <field name="res_model">school.pdf.report.model</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
+

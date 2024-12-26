@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="owl.CopyField">
+        <div class="d-flex o_username_field align-items-center">
+            <input type="text" t-att-value="props.record.data.phone_number" t-ref="inputField"
+                   class="form-control border-0"/>
+            <div class="ms-3 d-inline-flex align-items-center">
+            <i t-on-click="onCopy" class="fa fa-clipboard" data-tooltip="Copy Text" aria-label="Copy To Clipboard"
+               style="cursor: pointer; font-size: 18px;">
+            </i>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="patient_sequence_id" model="ir.sequence">
+            <field name="name">Patient Sequence</field>
+            <field name="code">patient.seq</field>
+            <field name="prefix">PT%(year)s%(month)s%(day)s</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

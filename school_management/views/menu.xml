@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_school_root"
+              name="Schools"
+              sequence="10"/>
+
+    <menuitem id="menu_school"
+              name="Schools"
+              parent="menu_school_root"
+              action="school_action"
+              sequence="1"/>
+
+    <menuitem id="menu_employee"
+              name="Employee Staff"
+              parent="menu_school_root"
+              action="school_employee_action" sequence="1"/>
+
+    <menuitem id="menu_students"
+              name="Students"
+              parent="menu_school_root"
+              action="school_student_action" sequence="2"/>
+
+    <menuitem id="menu_streams"
+              name="Streams"
+              parent="menu_school_root"
+              action="school_stream_action" sequence="3"/>
+
+    <menuitem id="menu_school_report"
+              name="Schools Reports 1"
+              parent="menu_school_root"
+              sequence="10"/>
+
+    <menuitem id="menu_school_pdf_report"
+              name="PDF Report"
+              action="menu_school_pdf_report_print"
+              parent="menu_school_root"
+              sequence="1"/>
+
+    <menuitem id="menu_school_config"
+              name="Configuration"
+              parent="menu_school_root"
+              sequence="50">
+
+        <menuitem id="menu_school_general_settings"
+                  name="Settings"
+                  sequence="1"
+                  action="action_school_config_settings" />
+
+    </menuitem>
+
+</odoo>

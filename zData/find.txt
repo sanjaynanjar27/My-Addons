@@ -1,0 +1,9 @@
+def _inverse_total_amount(self):
+    for order in self:
+        if order.total_amount:
+            average_price = order.total_amount / len(order.order_lines)
+            for line in order.order_lines:
+                line.quantity = average_price / line.price
+        else:
+            for line in order.order_lines:
+                line.quantity = 0.0

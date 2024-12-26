@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_pdf_template">
+        <t t-if="user.is_admin">
+            <p>Welcome, Admin!</p>
+        </t>
+        <t t-else="">
+            <p>Welcome, User!</p>
+        </t>
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2>Appointment Report</h2>
+                <p>
+                    <strong>Patient Name:</strong>
+                    <t t-esc="doc['report_content']['patient_name']"/>
+                </p>
+                <p>
+                    <strong>Doctor Name:</strong>
+                    <t t-esc="doc['report_content']['doctor_name']"/>
+                </p>
+                <p>
+                    <strong>Appointment Date:</strong>
+                    <t t-esc="doc['report_content']['appointment_date']"/>
+                </p>
+            </div>
+        </t>
+    </template>
+    <record id="hospital_appointment_tree_view" model="ir.ui.view">
+        <field name="name">hospital.appointment.tree.view</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state == 'done'" decoration-danger="state == 'cancel'">
+                <field name="reference"/>
+                <field name="doctor_id"/>
+                <field name="patient_id"/>
+                <field name="appointment_date"/>
+                <field name="treatment_end_date"/>
+                <field name="priority" widget="rating"/>
+                <field name="activity_ids" widget="list_activity"/>
+                <field name="state"
+                       decoration-success="state == 'done'"
+                       decoration-info="state == 'draft'"
+                       decoration-danger="state == 'cancel'"
+                       decoration-warning="state == 'in_consultation'"
+                       widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hospital_appointment_form_view" model="ir.ui.view">
+        <field name="name">hospital.appointment.form.view</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <header>
+                        <button name="confirm_appointment"
+                                string="Confirm"
+                                type="object"
+                                class="btn-primary"
+                                invisible="state == 'cancel'"/>
+
+                        <button name="appointment_over"
+                                string="Done"
+                                type="object"
+                                class="btn-primary"
+                                invisible="state == 'cancel'"/>
+
+                        <button name="cancel_appointment"
+                                string="Cancel"
+                                type="object"
+                                class="btn btn-danger"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,in_consultation,done"
+                               on_change="1"/>
+                    </header>
+                    <group string="Appointment Details">
+                        <field name="doctor_id" required="1"/>
+                        <field name="patient_id" required="1"/>
+                        <field name="create_uid"/>
+                        <field name="appointment_date" required="1"/>
+                        <field name="treatment_end_date" required="1"/>
+                        <field name="priority" widget="rating"/>
+                        <field name="create_uid" readonly="1" class="oe_inline"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_custom_report" model="ir.actions.act_window">
+        <field name="name">Custom XLSX Report</field>
+        <field name="res_model">ir.ui.view</field>
+        <field name="view_mode">form</field>
+    </record>
+    <record id="action_hospital_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">tree,graph,activity,form</field>
+        <field name="view_id" ref="hospital_appointment_tree_view"/>
+    </record>
+</odoo>

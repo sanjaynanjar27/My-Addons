@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="school_demo_1" model="school.school2">
+            <field name="name">Green Valley High School</field>
+            <field name="city">Ahmedabad</field>
+            <field name="email">contact@greenvalleyhigh.com</field>
+            <field name="phone">+91 98765 43210</field>
+            <field name="address">123 Green Lane, Ahmedabad</field>
+            <field name="fees_amount">15000.0</field>
+        </record>
+
+        <record id="school_demo_2" model="school.school2">
+            <field name="name">Sunshine Academy</field>
+            <field name="city">Ahmedabad</field>
+            <field name="email">info@sunshineacademy.com</field>
+            <field name="phone">+91 87654 32109</field>
+            <field name="address">456 Sunny Street, Ahmedabad</field>
+            <field name="fees_amount">20000.0</field>
+        </record>
+
+        <record id="student_demo_1" model="school.student">
+            <field name="reference">STU001</field>
+            <field name="name">Alice Johnson</field>
+            <field name="birth_date">2010-05-15</field>
+            <field name="gender">female</field>
+            <field name="amount_paid">5000.0</field>
+            <field name="father_name">Robert Johnson</field>
+            <field name="phone">91234 56789</field>
+            <field name="email">alice.johnson@example.com</field>
+        </record>
+
+        <record id="student_demo_2" model="school.student">
+            <field name="reference">STU002</field>
+            <field name="name">Bob Smith</field>
+            <field name="birth_date">2009-08-22</field>
+            <field name="gender">male</field>
+            <field name="amount_paid">3000.0</field>
+            <field name="father_name">David Smith</field>
+            <field name="phone">93456 78901</field>
+            <field name="email">bob.smithexample.com</field>
+            <field name="school_ids" ref="school_demo_2"/>
+        </record>
+
+        <record id="school_stream_1" model="school.medium">
+            <field name="name">Hindi</field>
+        </record>
+
+        <record id="school_stream_2" model="school.medium">
+            <field name="name">English</field>
+        </record>
+
+        <record id="school_stream_3" model="school.medium">
+            <field name="name">Gujarati</field>
+        </record>
+    </data>
+</odoo>

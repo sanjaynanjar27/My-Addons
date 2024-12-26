@@ -1,0 +1,40 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Odoo Task',
+    'version': '1.0',
+    'summary': 'Odoo Task',
+    'sequence': -1,
+    'license': 'LGPL-3',
+    'description': """Project Custom""",
+    'category': 'Task ',
+    'depends': ['base',
+                'web',
+                'sale',
+                'board',
+                'custom_employee',
+                'base_setup',
+                'sales_team',
+                'mail',
+                'calendar',
+                'resource',
+                'utm',
+                'web_tour',
+                'contacts',
+                'digest',
+                'phone_validation',
+                ],
+
+    'data': [
+        'security/ir.model.access.csv',
+        'views/project_team_view.xml',
+        'views/city_view.xml',
+        'views/project_team_member_view.xml',
+        'data/sequance.xml',
+        'views/menu.xml',
+    ],
+    'demo': [
+
+    ],
+    'installable': True,
+    'application': True,
+}

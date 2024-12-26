@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_team_view" model="ir.ui.view">
+        <field name="name">Project Team View</field>
+        <field name="model">project.team</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="reference" />
+                <field name="name" />
+                <field name="is_active" />
+                <field name="team_leader" />
+            </tree>
+        </field>
+    </record>
+    <record id="project_team_form_view" model="ir.ui.view">
+        <field name="name">Project Team Form View</field>
+        <field name="model">project.team</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet class="o_form_sheet position-relative">
+                    <div class="row justify-content-between position-relative w-100 m-0 mb-2">
+                        <div class="oe_title mw-75 ps-0 pe-2">
+                            <h1 class="d-flex flex-row align-items-center">
+                                <field name="reference"
+                                       style="font-size: min(4vw, 2.6rem);" readonly="1"/>
+                            </h1>
+                            <h2>
+                                <field name="name" placeholder="Team's Name" required="True"/>
+                            </h2>
+                        </div>
+                    </div>
+                    <group name="Team Details">
+                        <group string="Personal Details">
+                            <field name="team_members" widget="many2many_tags"/>
+                            </group>
+                        <group string="Team Leader">
+                            <field name="team_leader" />
+                        </group>
+                        <group string="Team Activity">
+                            <field name="is_active" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="project_team_action" model="ir.actions.act_window">
+        <field name="name">Project Team Action</field>
+        <field name="res_model">project.team</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,50 @@
+<templates xml:space="preserve" owl="1">
+    <t t-name="owl_task.MyComponentTemplate">
+        <div style="margin-bottom: 20px;">
+            <input type="text" t-on-keypress="onEnterKeyPress" placeholder="Enter task..."
+                   style="width: 200px; padding: 10px; font-size: 16px; border: 2px solid #ccc; border-radius: 4px;"/>
+        </div>
+        <div>
+            <button t-on-click="onCreateNewList"
+                    style="padding: 10px 20px; font-size: 18px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Create New List
+            </button>
+            <ul style="list-style-type: disc; padding-left: 20px; margin-top: 20px;">
+                <li t-foreach="state.currentList" t-as="item" t-key="item" t-on-click="onClickItem"
+                    style="font-size: 18px; padding: 8px 0; cursor: pointer;">
+                    <span t-esc="item"/>
+                </li>
+            </ul>
+        </div>
+        <div style="margin-top: 30px; display: flex; flex-wrap: wrap;">
+            <t t-foreach="state.oldLists" t-as="oldList" t-key="oldList">
+                <div class="card"
+                     style="display: inline-block; width: 400px; padding: 20px; margin-right: 20px; background-color: #f4f4f4; border: 1px solid #ddd; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); vertical-align: top;">
+                    <h3 style="font-size: 24px; font-weight: bold; margin-bottom: 15px;">List Items
+                    <button style="margin-left:150px" class="btn btn-danger" t-on-click="deleteListIndex">🗑️</button>
+                    <button class="btn btn-secondary" t-on-click="onEditList" >✍🏻</button>
+                    </h3>
+                    <ul style="list-style-type: disc; padding-left: 20px;">
+                        <t t-foreach="oldList" t-as="item" t-key="item">
+                            <li style="font-size: 18px; padding: 8px 0; cursor: pointer;">
+                                <span t-on-click="onClickItem" t-esc="item"/>
+                                <button
+                                        t-on-click="onClickDelete"
+                                        t-att-data-item="item"
+                                        style="
+                                            margin-right: 8px;
+                                            color: red;
+                                            cursor: pointer;
+                                            background: transparent;
+                                            border: none;
+                                            outline: none;
+                                            padding: 0;
+                                            font-size: inherit;"> ❌ </button>
+                            </li>
+                        </t>
+                    </ul>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="cit_user_login_status.CustomSessionExpiredDialog">
+        <Dialog title="'Odoo Session Expired'" contentClass="'o_error_dialog'">
+            <div role="alert">
+                <p class="text-prewrap">
+                    Your Odoo session has timed out. Please refresh the page to continue.
+                </p>
+            </div>
+            <t t-set-slot="footer">
+                <button class="btn btn-primary o-default-button" t-on-click="onClick">Reload</button>
+            </t>
+        </Dialog>
+    </t>
+</templates>
+

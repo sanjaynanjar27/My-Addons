@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="doctor_page" name="Doctors List">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <h2 class="text-center">Doctors Data</h2>
+                <p class="text-center text-muted">This is a demo template for URL routing test:</p>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class="thead-dark">
+                        <tr> <!-- Start the row for table headers -->
+                            <th>Name</th>
+                            <th>Expertise</th>
+                            <th>Experience</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="doctors" t-as="doc">
+                            <tr>
+                                <td>
+                                    <t t-esc="doc.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.expertise"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.experience"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

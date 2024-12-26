@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Javascript Tutorial</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <p id="data">This Is content we are going to change using script</p>
+    <p id="demo" style="display: none">Hello JavaScript!</p>
+
+    <button onclick="demo()">Click Here To Change Content</button>
+
+    <button onclick="changeFontSize()">Click Here To Change Font size</button>
+
+    <button onclick="hideFont()">Click To Hide Data</button>
+
+    <button onclick="displayHidden()">Click Here to Unhide The Line</button>
+
+    <p id="dsp"></p>
+
+    <p id="emp"></p>
+
+    <p id="sum"></p>
+
+    <p id="d1"></p>
+
+    <p id="pw"></p>
+
+    <p id="info"></p>
+
+    <p id="fun_ret"></p>
+
+    <p id="demo33"></p>
+
+    <p id="newElements"></p>
+
+    <p id="forEachData"></p>
+
+    <button onclick="document.getElementById('datePresent').innerHTML = Date()">
+      Time
+    </button>
+    <br />
+    <button onclick="this.innerHTML = Date()">Time</button>
+
+    <button onclick="replaceNames()">My Name Is BigBoss</button>
+
+    <p id="datePresent"></p>
+
+    <script type="text/javascript">
+      document.getElementById("dsp").innerHTML = "JS In Script Tag";
+
+      function demo() {
+        document.getElementById("data").innerHTML = "Good Morning";
+      }
+
+      function changeFontSize() {
+        document.getElementById("data").style.fontSize = "30px";
+      }
+      function hideFont() {
+        document.getElementById("data").style.display = "none";
+      }
+      function displayHidden() {
+        document.getElementById("data").style.display = "block";
+      }
+
+      let x = 123;
+      let y = 443;
+      let z = x + y;
+      const a = 20;
+      const b = a;
+
+      document.getElementById("sum").innerHTML =
+        "Sum Of JS Variables Is : " + (b == a);
+
+      let text = "Good Morning! ";
+      text += "Sanjay";
+      document.getElementById("d1").innerHTML =
+        "Texts Are Joined By + sign: " + text;
+
+      let c = Math.pow(x, 2);
+      document.getElementById("pw").innerHTML =
+        "Power of a using Math library: : " + c;
+
+      // Arrays Object
+      let num1 = 28;
+      let name = "Samael";
+      const names_list = ["kiran", "jalpa", "Kishan"];
+
+      // Object
+      const name_obj = { name: names_list[0], relative_name: names_list[1] };
+
+      // date object
+      const date = new Date();
+
+      document.getElementById("info").innerHTML =
+        names_list + ", " + name_obj + ", " + date;
+
+      let result = new_type(10, 20);
+      document.getElementById("fun_ret").innerHTML =
+        " Multiplication : " + new_type(7, 25);
+
+      function new_type(v1, v2) {
+        return v1 * v2;
+      }
+
+      const students = {};
+      students.roll_number = 1;
+      students.name = "kamal";
+      students.city = "Ahmedabad";
+      console.log(students["city"]);
+
+      const emps = {
+        first_name: "Kamal",
+        last_name: "Hasan",
+        city: "Ahmedabad",
+        full_name: function () {
+          return this.first_name + "  " + this.last_name;
+        },
+      };
+
+      // console.log(emps.full_name())
+      // document.getElementById('emp').innerHTML = emps.full_name().toUpperCase()
+
+      // let msg = ''
+      // for (let x in emps){
+      // 	console.log(emps[x])
+      // 	msg += emps[x] + " "
+      // }
+
+      // document.getElementById('emp').innerHTML = msg
+      // const myData = Object.values(emps)
+      // console.log(myData)
+
+      let msg = "";
+      for (let [details, about] of Object.entries(emps)) {
+        msg += details + " : " + about + "<br>";
+      }
+      // document.getElementById('emp').innerHTML = msg
+      document.getElementById("emp").innerHTML = JSON.stringify(emps);
+
+      function anyPerson(fName, lName, age, city) {
+        this.fName = fName;
+        this.lName = lName;
+        this.age = age;
+        this.city = city;
+      }
+
+      const emp1 = new anyPerson("Sanjay", "Nanjar", 23, "Ahmedabad");
+      console.log(emp1.fName);
+
+      function Person(fName, lastName, age, city) {
+        this.fName = fName;
+        this.lastName = lastName;
+        this.age = age;
+        this.city = city;
+      }
+      const mother = new Person("Jenna", "Jakson", 24, "Ohio");
+      Person.prototype.changeName = function (name) {
+        this.lastName = name;
+      };
+      mother.changeName("Kiara");
+      console.log(typeof mother.lastName);
+
+      let t1 = "Sam";
+      let t2 = "Karan";
+      let t3 = t1.concat(" ", t2);
+      let t4 = t3.trim();
+      console.log(t4.length);
+      console.log(t3.length);
+
+      let text22 = "5";
+      let padded = text22.padStart(4, "0");
+      console.log(padded);
+
+      function replaceNames() {
+        let someData = "Welcome Big Boss";
+        let newText = someData.replace("Big", "Dig");
+        document.getElementById("demo33").innerHTML = newText;
+      }
+
+      let a1 = "Jacky";
+      let a2 = "Dada";
+      let tex1 = `Welcome ${a1}, ${a2}`;
+      console.log(tex1);
+
+      let header = "Template Using Loop";
+      let tags = ["Javascript", "Java", "Python 3.0", "JSON"];
+
+      let html = `<h2>${header}</h2><ul>`;
+      for (const x of tags) {
+        html += `<li>${x}</li>`;
+      }
+      html += `</ul>`;
+
+      document.getElementById("newElements").innerHTML = html;
+
+      const nums = [2, 3, 5, 2, 1];
+      texxt = "";
+      nums.forEach(myFunc);
+      function myFunc(value) {
+        texxt += value + "  ";
+      }
+      document.getElementById("forEachData").innerHTML = texxt;
+    </script>
+  </body>
+</html>

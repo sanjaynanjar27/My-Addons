@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="books_report_document">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <h2 style="text-align:center;">School Details</h2>
+                    <t t-foreach="docs" t-as="doc">
+                        <div style="margin:20px 0;">
+                            <div class="row justify-content-between position-relative w-100 m-0 mb-2">
+                                <div class="oe_title mw-75 ps-0 pe-2">
+                                    <h1 class="d-flex flex-row align-items-center">
+                                        <span t-field="doc.name" style="font-size: min(4vw, 2.6rem);"/>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </template>
+        <template id="template_name" name="Library Management Greeting Template">
+            <div>
+                <p t-esc="greeting_text"/>
+
+                <p>Company:
+                    <t t-esc="company_name"/>
+                </p>
+                <p>
+                    <t t-esc="fixed_message"/>
+                </p>
+
+                <p>Your current language is:
+                    <t t-esc="language"/>
+                </p>
+            </div>
+        </template>
+
+    </data>
+</odoo>

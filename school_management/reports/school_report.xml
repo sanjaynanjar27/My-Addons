@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_school_report" model="ir.actions.report">
+        <field name="name">School Report</field>
+        <field name="model">school.school2</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">SM.school_report_template</field>
+        <field name="report_file">SM.school_report_template</field>
+        <field name="binding_model_id" ref="model_school_school2"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+<!--Most important we have to declare template
+    name which we register
+    at the end of the js
+    owl="1" - weather it follows odoo owl formate (Binary)-->
+    <t t-name="owl.OwlSalesDashboard" owl="1">
+        <div class="vh-100 overflow-auto bg-muted">
+            <div class="row m-3">
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h1 class="text-primary fw-bold">Custom Sales Dashboard</h1>
+                                    <div>
+                                        <!-- t-model is for setting model which we can access in js file
+                                         t-on-change which calls function to perform the task on selecting the value in options-->
+                                        <select class="form-select" t-model="state.period" t-on-change="onChangePeriod">
+                                            <option value="0">Select Period</option>
+                                            <option value="7">Last 7 Days</option>
+                                            <option value="30">Last 30 Days</option>
+                                            <option value="90">Last 90 Days</option>
+                                            <option value="365">Last 365 Days</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- KpiCard is custom component which accepts values by state.quotations we have to pass it through js -->
+                        <KpiCard onClick.bind="viewQuotations" name="'Quotations'" value="state.quotations.value"
+                                 percentage="state.quotations.percentage"/>
+
+                        <!-- KpiCard is custom component which accepts values by state.orders we have to pass it through js -->
+                        <KpiCard onClick.bind="viewOrders" name="'Orders'" value="state.orders.value"
+                                 percentage="state.orders.percentage"/>
+
+                        <!-- KpiCard is custom component which accepts values by  Revenues function we have to pass it through js -->
+                        <KpiCard onClick.bind="viewRevenues" name="'Revenues'" value="state.orders.revenue"
+                                 percentage="state.orders.revenue_percentage"/>
+
+                        <!-- KpiCard is custom component which accepts values by  viewRevenues function we have to pass it through js -->
+                        <KpiCard onClick.bind="viewRevenues" name="'Average Order'" value="state.orders.average"
+                                 percentage="state.orders.average_percentage"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Top Products</h3>
+                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div>
+                                </div>
+                                <!-- This component represents ChartREnder js class for : getTopProducts class -->
+                                <ChartRenderer type="'doughnut'" title="'Top Products Report'"
+                                               config="state.getTopProducts"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Top Sales People</h3>
+                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div>
+                                </div>
+
+                                <!-- This component represents ChartREnder js class for : getTopSalesPeople class -->
+                                <ChartRenderer type="'pie'" title="'Top Sales People Report'"
+                                               config="state.getTopSalesPeople"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Monthly Sales</h3>
+                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div>
+                                </div>
+                                <!-- This component represents ChartREnder js class for : getMonthlySales class -->
+                                <ChartRenderer type="'bar'" title="'Monthly Sales Report'"
+                                               config="state.getMonthlySales"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Partner Orders</h3>
+                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div>
+                                </div>
+                                <!-- This component represents ChartREnder js class for : getPartnerOrders class -->
+                                <ChartRenderer type="'bar'" title="'Partner Orders Report'"
+                                               config="state.getPartnerOrders"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

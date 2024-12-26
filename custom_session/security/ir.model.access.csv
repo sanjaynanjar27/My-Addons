@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_logout_all_devices_wizard,custom.logout.all.devices.wizard,model_logout_all_devices_wizard,base.group_user,1,1,1,1
+access_res_device_log,res_device_log,model_res_device_log,base.group_user,1,0,0,0
+access_user_login_history,res_user_login_history,model_user_login_history,base.group_user,1,1,1,1
+access_user_login_password_confirm,access.user.login.passwoqqqrd.confirm,model_user_login_password_confirm,base.group_user,1,1,1,1

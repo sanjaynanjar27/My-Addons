@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="school_employee_tree_view" model="ir.ui.view">
+        <field name="name">school employee tree view</field>
+        <field name="model">school.employees</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="joining_date"/>
+                <field name="designation"/>
+                <field name="school_id"/>
+                <field name="photo" widget="image" options="{'size': [50, 50]}"/>
+                <field name="medium_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    <record id="school_employee_form_view" model="ir.ui.view">
+        <field name="name">school employee tree view</field>
+        <field name="model">school.employees</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="photo" widget="image" options="{'size': [50, 50]}"/>
+                        <field name="joining_date"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                        <field name="designation"/>
+                        <field name="school_id"/>
+                        <field name="medium_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_school_employees_kanban" model="ir.ui.view">
+        <field name="name">school.employees.kanban</field>
+        <field name="model">school.employees</field>
+        <field name="arch" type="xml">
+            <kanban class="o_hr_employee_kanban">
+                <field name="id"/>
+                <field name="photo" on_change="1"/>
+                <field name="school_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                            <t t-if="record.photo.raw_value">
+                                <field name="photo" class="o_kanban_image_fill_left d-block" widget="image"
+                                       options="{'zoom': true, 'zoom_delay': 1000}"/>
+                            </t>
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name" placeholder="Employee's Name" on_change="1"/>
+                                        </strong>
+                                        <span t-if="record.designation.raw_value" class="o_kanban_record_subtitle">
+                                            <field name="designation" field_id="designation_0"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li t-if="record.email.raw_value" class="o_text_overflow">
+                                        <i class="fa fa-fw me-2 fa-envelope text-primary" title="Email"/>
+                                        <field name="email" field_id="email_0"/>
+                                    </li>
+                                    <li t-if="record.phone.raw_value" class="o_force_ltr">
+                                        <i class="fa fa-fw me-2 fa-phone text-primary" title="Phone"/>
+                                        <field name="phone" field_id="phone_0"/>
+                                    </li>
+                                    <li class="hr_tags">
+                                        <field name="medium_ids" widget="many2many_tags"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="school_employee_search_view" model="ir.ui.view">
+        <field name="name">School.search.view</field>
+        <field name="model">school.employees</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="school_id"/>
+                <field name="medium_ids"/>
+                <field name="designation"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_stream"
+                            string="Schools"
+                            context="{'group_by' : 'school_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="designation" string="designation" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+    <record id="school_employee_action" model="ir.actions.act_window">
+        <field name="name">School Employees</field>
+        <field name="res_model">school.employees</field>
+        <field name="view_mode">kanban,form,tree</field>
+    </record>
+</odoo>

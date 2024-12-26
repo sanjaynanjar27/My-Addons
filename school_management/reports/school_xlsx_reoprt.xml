@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!-- XLSX Report Template -->
+        <template id="school_report_template_xlsx">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <table style="width:100%;border:1px solid black;">
+                        <thead>
+                            <tr>
+                                <th style="border:1px solid black; padding: 5px;">School Name</th>
+                                <th style="border:1px solid black; padding: 5px;">Principal Name</th>
+                                <th style="border:1px solid black; padding: 5px;">Email</th>
+                                <th style="border:1px solid black; padding: 5px;">Contact</th>
+                                <th style="border:1px solid black; padding: 5px;">City</th>
+                                <th style="border:1px solid black; padding: 5px;">Address</th>
+                                <th style="border:1px solid black; padding: 5px;">Fees Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border:1px solid black; padding: 5px;" t-esc="doc.name"/>
+                                <td style="border:1px solid black; padding: 5px;" t-esc="doc.principal"/>
+                                <td style="border:1px solid black; padding: 5px;" t-esc="doc.email"/>
+                                <td style="border:1px solid black; padding: 5px;" t-esc="doc.phone"/>
+                                <td style="border:1px solid black; padding: 5px;" t-esc="doc.city"/>
+                                <td style="border:1px solid black; padding: 5px;" t-esc="doc.address"/>
+                                <td style="border:1px solid black; padding: 5px;" t-esc="doc.fees_amount"/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 style="text-align:center;">Students Information</h3>
+                    <table style="width:100%;border:1px solid black;">
+                        <thead>
+                            <tr>
+                                <th style="border:1px solid black; padding: 5px;">Name</th>
+                                <th style="border:1px solid black; padding: 5px;">Father Name</th>
+                                <th style="border:1px solid black; padding: 5px;">Email</th>
+                                <th style="border:1px solid black; padding: 5px;">Phone</th>
+                                <th style="border:1px solid black; padding: 5px;">Semester</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.student_ids" t-as="student">
+                                <tr>
+                                    <td style="border:1px solid black; padding: 5px;" t-esc="student.name"/>
+                                    <td style="border:1px solid black; padding: 5px;" t-esc="student.father_name"/>
+                                    <td style="border:1px solid black; padding: 5px;" t-esc="student.email"/>
+                                    <td style="border:1px solid black; padding: 5px;" t-esc="student.phone"/>
+                                    <td style="border:1px solid black; padding: 5px;" t-esc="student.sem"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3 style="text-align:center;">Employee Information</h3>
+                    <table style="width:100%;border:1px solid black;">
+                        <thead>
+                            <tr>
+                                <th style="border:1px solid black; padding: 5px;">Name</th>
+                                <th style="border:1px solid black; padding: 5px;">Joining Date</th>
+                                <th style="border:1px solid black; padding: 5px;">Designation</th>
+                                <th style="border:1px solid black; padding: 5px;">Phone</th>
+                                <th style="border:1px solid black; padding: 5px;">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.employee_ids" t-as="emp">
+                                <tr>
+                                    <td style="border:1px solid black; padding: 5px;" t-esc="emp.name"/>
+                                    <td style="border:1px solid black; padding: 5px;" t-esc="emp.joining_date"/>
+                                    <td style="border:1px solid black; padding: 5px;" t-esc="emp.designation.name"/>
+                                    <td style="border:1px solid black; padding: 5px;" t-esc="emp.phone"/>
+                                    <td style="border:1px solid black; padding: 5px;" t-esc="emp.email"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

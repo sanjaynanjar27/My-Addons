@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit web.assets_backend to inject custom JS -->
+        <template id="assets_backend" name="Custom Dashboard OWL" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/custom_dashboard/static/src/components/dashboard.js"/>
+            </xpath>
+        </template>
+
+        <!-- Example of a dashboard menu -->
+        <record id="action_dashboard_owl" model="ir.actions.act_window">
+            <field name="name">OWL Dashboard</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_dashboard_owl"/>
+            <field name="target">current</field>
+        </record>
+        <menuitem id="menu_dashboard_owl" name="OWL Dashboard" action="action_dashboard_owl" parent="base.menu_custom"/>
+        <!-- The view definition to render OWL -->
+        <record id="view_dashboard_owl" model="ir.ui.view">
+            <field name="name">dashboard.owldashboard</field>
+            <field name="model">ir.ui.view</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div id="dashboard_owl_container">
+                        <t t-raw="widget.render()"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

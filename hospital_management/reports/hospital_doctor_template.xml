@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="report_doctor_data_template">
+            <t t-call="web.html_container">
+                <head>
+                    <!-- Include Google Fonts -->
+                    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;family=Roboto+Slab:wght@700&amp;display=swap"
+                          rel="stylesheet"/>
+                </head>
+                <div class="page" style="font-family: 'Roboto', sans-serif; line-height: 1.6;">
+                    <h2 style="text-align:center;">Doctor Details</h2>
+                    <t t-name="hospital_management.report_doctor_data_template">
+                        <div>
+                            <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                                <h3 style="font-size: 24px; color: #333;">Doctor's Information</h3>
+                                <div style="margin-bottom: 15px;">
+                                    <p style="font-size: 18px; color: #555; line-height: 1.5;">
+                                        <strong>Name:</strong>
+                                        <span t-esc="name" style="color: #007bff; font-weight: 500;"/>
+                                    </p>
+                                    <p style="font-size: 18px; color: #555; line-height: 1.5;">
+                                        <strong>Expertise:</strong>
+                                        <span t-esc="expertise" style="color: #007bff; font-weight: 500;"/>
+                                    </p>
+                                    <p style="font-size: 18px; color: #555; line-height: 1.5;">
+                                        <strong>Experience:</strong>
+                                        <span t-esc="experience" style="color: #007bff; font-weight: 500;"/>
+                                    </p>
+                                    <t t-if="report_type == 'summary'">
+                                        <p style="font-size: 18px; color: #555; line-height: 1.5;">
+                                            <strong>Total Appointments:</strong>
+                                            <span t-esc="total_appointments" style="color: #007bff; font-weight: 500;"/>
+                                        </p>
+                                    </t>
+                                </div>
+                            </div>
+
+                            <!-- Section for Appointments if needed -->
+                            <t t-if="report_type == 'detailed'">
+                                <div style="margin-top: 30px;">
+                                    <h3 style="font-size: 24px; color: #333;">Appointments Information</h3>
+                                    <table border="1" cellpadding="8" cellspacing="0"
+                                           style="width: 100%; border-collapse: collapse; margin-top: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                                        <thead style="background-color: #007bff; color: white;">
+                                            <tr>
+                                                <th style="padding: 10px; text-align: center;">Appointment ID</th>
+                                                <th style="padding: 10px; text-align: center;">Patient Name</th>
+                                                <th style="padding: 10px; text-align: center;">Appointment Date</th>
+                                                <th style="padding: 10px; text-align: center;">Treatment End Date</th>
+                                                <th style="padding: 10px; text-align: center;">Priority</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="appointment_info.items()" t-as="item">
+                                                <tr style="border-bottom: 1px solid #ddd;">
+                                                    <td style="padding: 8px; text-align: center;" t-esc="item[0]"/>
+                                                    <td style="padding: 8px; text-align: center;"
+                                                        t-esc="item[1]['patient_name']"/>
+                                                    <td style="padding: 8px; text-align: center;"
+                                                        t-esc="item[1]['appointment_date']"/>
+                                                    <td style="padding: 8px; text-align: center;"
+                                                        t-esc="item[1]['treatment_end_date']"/>
+                                                    <td style="padding: 8px; text-align: center;"
+                                                        t-esc="item[1]['priority']"/>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+
+                            <!-- If report_type is 'summary', we don't show the appointment details -->
+                            <t t-elif="report_type == 'summary'">
+                                <div style="margin-top: 30px;">
+                                    <h3 style="font-size: 24px; color: #333;">Appointments: Not available in summary
+                                        report
+                                    </h3>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

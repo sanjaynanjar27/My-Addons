@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="school_stream_form_view" model="ir.ui.view">
+        <field name="name">school.stream.form.view</field>
+        <field name="model">school.medium</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <div class="row justify-content-between position-relative w-100 m-0 mb-2" style="width:500px">
+                            <div class="oe_title mw-75 ps-0 pe-2" style="width:500px">
+                                <h1 class="d-flex flex-row align-items-center" style="width:500px">
+                                    <field name="name" placeholder="Stream Name"
+                                           style="font-size: min(4vw, 2.6rem);"/>
+                                </h1>
+                            </div>
+                        </div>
+                    </group>
+                    <notebook>
+                        <page string="Schools">
+                            <group>
+                                <field name="school_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="city"/>
+                                        <field name="principal"/>
+                                        <field name="address"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="school_stream_action" model="ir.actions.act_window">
+        <field name="name">Streams</field>
+        <field name="res_model">school.medium</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'edit':1, 'create':1, 'delete':1}</field>
+    </record>
+</odoo>

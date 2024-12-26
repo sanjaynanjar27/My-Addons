@@ -1,0 +1,31 @@
+<odoo>
+    <template id="report_employee_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docids" t-as="employee_id">
+                <t t-set="employee" t-value="doc_model.browse(employee_id)"/>
+                <div class="page">
+                    <h2>Employee Report for
+                        <t t-esc="employee.name"/>
+                    </h2>
+                    <p>
+                        <strong>Email:</strong>
+                        <t t-esc="employee.email"/>
+                    </p>
+                    <p>
+                        <strong>Phone Number:</strong>
+                        <t t-esc="employee.phone_number"/>
+                    </p>
+                    <p>
+                        <strong>Technology:</strong>
+                        <t t-esc="employee.technology_working_on"/>
+                    </p>
+                    <p>
+                        <strong>Salary:</strong>
+                        <t t-esc="employee.salary"/>
+                    </p>
+                    <!-- Add more fields as needed -->
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="book_data_tree_view" model="ir.ui.view">
+            <field name="name">book.data.tree.view</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="author"/>
+                    <field name="avail"/>
+                    <field name="author_name"/>
+                    <field name="category" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+        <record id="book_data_form_view" model="ir.ui.view">
+            <field name="name">book.data.form.view</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="author"/>
+                            <field name="avail"/>
+                            <field name="author_name"/>
+                        </group>
+                        <group>
+                            <field name="category" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="book_search_view" model="ir.ui.view">
+            <field name="name">book.search.view</field>
+            <field name="model">library.books</field>
+            <field name="arch" type="xml">
+                <search string="Server Actions">
+                    <field name="name" string="Book Name"/>
+                    <field name="author"/>
+                    <field name="category"/>
+                    <group expand="0" string="Group By" colspan="4" col="4">
+                        <filter string="Books" name="category" domain="[]" context="{'group_by':'category'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="books_report_template" model="ir.actions.report">
+            <field name="name">Books Report</field>
+            <field name="model">library.books</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">library_management.books_report_document</field>
+            <field name="report_file">library_management.books_report_document</field>
+            <field name="binding_model_id" ref="model_library_books"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+        <record id="book_availability" model="ir.actions.act_window">
+            <field name="name">Is Available?</field>
+            <field name="res_model">library.books</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="book_category" model="ir.actions.act_window">
+            <field name="name">Category</field>
+            <field name="res_model">book.category</field>
+            <field name="context">{'edit':1, 'create':1, 'delete':1}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View: Simple list of patients -->
+    <record id="hospital_patient_tree_view" model="ir.ui.view">
+        <field name="name">hospital.patient.tree.view</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="reference"/>
+                <field name="name" optional="show"/>
+                <field name="gender" optional="show"/>
+                <field name="phone" widget="phone"/>
+                <field name="date_of_birth" optional="show"/>
+                <field name="heart_rate" optional="show"/>
+                <field name="walter_level" optional="hide"/>
+                <field name="visiting_time" optional="show"/>
+                <field name="create_uid"/>
+                <field name="prev_reports" optional="hide" widget="image"/>
+                <field name="disabled" optional="show"/>
+                <field name="address" optional="hide"/>
+                <field name="notes" optional="show"/>
+                <field name="doctor" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View: Patient detailed form -->
+    <record id="hospital_patient_form_view" model="ir.ui.view">
+        <field name="name">hospital.patient.form.view</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                    <button string="Print Patient Data"
+                            class="btn btn-primary"
+                            name="%(hospital_management.patient_report)d"
+                            type="action"/>
+
+                    <button string="New Appointment"
+                            class="btn btn-primary"
+                            name="action_new_appointment"
+                            type="object"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="open_appointments" type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                                invisible="0">
+                            <field name="appointment_ids" widget="statinfo" string="Appointments"/>
+                        </button>
+                    </div>
+                    <div>
+                        <div class="oe_card" style="max-width: 1000px; margin: auto;">
+                            <h2 style="font-size: 24px;">
+                                <field name="reference" options="{'no_open': True}" readonly="1"/>
+                            </h2>
+                            <!-- General Information Tab -->
+                            <group name="Patient Information">
+                                <group string="Basic Details">
+                                    <field name="name" placeholder="Enter Full Name.." class="oe_inline"/>
+                                    <field name="gender" widget="radio"/>
+                                    <field name="phone" widget="phone"/>
+                                    <field name="date_of_birth"/>
+                                    <field name="doctor" placeholder="Select Doctor"/>
+                                    <field name="create_uid"/>
+                                </group>
+                                <group string="Medical Information">
+                                    <field name="heart_rate" placeholder="Enter Heart Rate"/>
+                                    <field name="walter_level" placeholder="Enter Water Level" invisible="1"/>
+                                    <field name="visiting_time" placeholder="Select Visiting Time"/>
+                                    <field name="disabled"/>
+                                </group>
+                                <group string="Reports">
+                                    <field name="prev_reports" widget="image"/>
+                                    <field name="notes"
+                                           placeholder="Add Notes About any additional detail for Doctor"
+                                           widget="html"/>
+                                </group>
+                                <group>
+                                    <field name="address" placeholder="Enter Current Address.."/>
+                                </group>
+                            </group>
+                            <div class="oe_chatter">
+                                <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                                <field name="message_ids" widget="mail_thread"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="school_closed_server_action" model="ir.actions.server">
+        <field name="name">Print Xlsx Report For Patients</field>
+        <field name="model_id" ref="model_hospital_patient"/>
+        <field name="binding_model_id" ref="model_hospital_patient"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = records.generate_patient_xlsx_report()
+        </field>
+    </record>
+
+    <record id="action_hospital_patient" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

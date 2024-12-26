@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="auto_logout_idle_user_odoo.AutoLogoutSystray">
+        <div class="new_icon" style="font-size: 10px; color: white; display: flex; align-items: center;">
+            <p t-esc="state.idleTimeLeft || '0h 0m 0s'"
+               style="color: white; font-size: 20px; background-color: #71639e; padding: 5px 15px; border-radius: 50px; margin-top: 15px;"></p>
+        </div>
+    </t>
+</templates>

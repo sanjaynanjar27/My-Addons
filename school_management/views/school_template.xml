@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="school_page" name="Schools">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <h2 class="text-center">Schools List</h2>
+                <p class="text-center text-muted">This is a demo template for URL routing test:</p>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class="thead-dark">
+                        <tr> <!-- Start the row for table headers -->
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Fees</th>
+                            <th>Principal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="schools" t-as="doc">
+                            <tr>
+                                <td>
+                                    <t t-esc="doc.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.city"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.email"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.phone"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.fees_amount"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.principal"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <!--    This page contains data from hospital_management module -->
+    <template id="report_pdf_template_url">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <h2 class="text-center">Appointment List</h2>
+                <p class="text-center text-muted">This is a demo template for URL routing test:</p>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Doctor</th>
+                            <th>Patient Name</th>
+                            <th>Appointment Data</th>
+                            <th>End Appointment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="appointments" t-as="doc">
+                            <tr>
+                                <td>
+                                    <t t-esc="doc.reference"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.patient_id.name"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.appointment_date"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.treatment_end_date"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>
+

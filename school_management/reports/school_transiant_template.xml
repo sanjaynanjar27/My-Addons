@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="school_report_template_for_wizard">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <h2 style="text-align:center;">School Details</h2>
+                    <t t-name="school_management.school_report_template_for_wizard">
+                        <div>
+                            <h2>School Report</h2>
+                            <div>
+                                <h3>School Name:
+                                    <span t-esc="name"/>
+                                </h3>
+                                <p>City:
+                                    <span t-esc="city"/>
+                                </p>
+                                <p>Email:
+                                    <span t-esc="email"/>
+                                </p>
+                                <p>Phone:
+                                    <span t-esc="phone"/>
+                                </p>
+                                <p>Address:
+                                    <span t-esc="address"/>
+                                </p>
+                                <p>Fees Amount:
+                                    <span t-esc="fees_amount"/>
+                                </p>
+                                <p>Principal:
+                                    <span t-esc="principal"/>
+                                </p>
+                                <p>Additional Info:
+                                    <span t-esc="other_data"/>
+                                </p>
+                            </div>
+
+                            <h3>Students:</h3>
+                            <h2>Student Information</h2>
+                            <table border="1" cellpadding="5" cellspacing="0"
+                                   style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr>
+                                        <th>Student ID</th>
+                                        <th>Father's Name</th>
+                                        <th>Birth Date</th>
+                                        <th>Gender</th>
+                                        <th>Age</th>
+                                        <th>Amount Paid</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Semester</th>
+                                        <th>Medium</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="student_info.items()" t-as="item">
+                                        <tr>
+                                            <td t-esc="item[0]"/>  <!-- student ID -->
+                                            <td t-esc="item[1]['father_name']"/>  <!-- father's name -->
+                                            <td t-esc="item[1]['birth_date']"/>  <!-- birth date -->
+                                            <td t-esc="item[1]['gender']"/>  <!-- gender -->
+                                            <td t-esc="item[1]['age']"/>  <!-- age -->
+                                            <td t-esc="item[1]['amount_paid']"/>  <!-- amount paid -->
+                                            <td t-esc="item[1]['phone']"/>  <!-- phone -->
+                                            <td t-esc="item[1]['email']"/>  <!-- email -->
+                                            <td t-esc="item[1]['sem']"/>  <!-- semester -->
+                                            <td t-esc="item[1]['medium']"/>  <!-- medium -->
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <!-- Employees List (One2many) -->
+                            <h2>Employee Information</h2>
+                            <table border="1" cellpadding="5" cellspacing="0"
+                                   style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr>
+                                        <th>Employee ID</th>
+                                        <th>Name</th>
+                                        <th>Joining Date</th>
+                                        <th>Designation</th>
+                                        <th>Medium</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="emp_info.items()" t-as="item">
+                                        <tr>
+                                            <td t-esc="item[0]"/>  <!-- Employee ID -->
+                                            <td t-esc="item[1]['name']"/>  <!-- Employee Name -->
+                                            <td t-esc="item[1]['joining_date']"/>  <!-- Joining Date -->
+                                            <td t-esc="item[1]['designation']"/>  <!-- Designation -->
+                                            <td t-esc="item[1]['medium_ids']"/>  <!-- Medium(s) -->
+                                            <td t-esc="item[1]['email']"/>  <!-- Email -->
+                                            <td t-esc="item[1]['phone']"/>  <!-- Phone -->
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

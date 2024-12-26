@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_team_member,access.project.team.member,model_project_team_member,base.group_user,1,1,1,1
+access_res_state_cities,access.res.state.cities,model_res_state_cities,base.group_user,1,1,1,1
+access_res_project_team,access.access.project.team,model_project_team,base.group_user,1,1,1,1

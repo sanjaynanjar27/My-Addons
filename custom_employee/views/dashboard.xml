@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="employee_dashboard_view" model="ir.ui.view">
+        <field name="name">employee.dashboard.graph.view</field>
+        <field name="model">wb.employee</field>
+        <field name="arch" type="xml">
+            <graph string="Employee Salary Distribution" type="bar">
+                <field name="salary" type="measure"/>
+                <field name="gender" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="employee_dashboard_action" model="ir.actions.act_window">
+        <field name="name">Employee Dashboard</field>
+        <field name="res_model">wb.employee</field>
+        <field name="view_mode">graph,form</field>
+        <field name="view_id" ref="employee_dashboard_view"/>
+    </record>
+</odoo>

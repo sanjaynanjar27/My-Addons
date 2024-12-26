@@ -1,0 +1,9 @@
+.o_username_field input {
+    border: none; /* Removes the border of the input field */
+    outline: none; /* Removes the focus outline */
+    box-shadow: none; /* Removes any shadow that might appear on focus */
+}
+
+.o_username_field button {
+    border: 1px; /* Removes the border of the button */
+}

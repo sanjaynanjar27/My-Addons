@@ -1,0 +1,131 @@
+<odoo>
+    <data>
+        <record id="wb_employee_tree_view" model="ir.ui.view">
+            <field name="name">wb.employee.tree.view</field>
+            <field name="model">wb.employee</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="reference"/>
+                    <field name="upper_name"/>
+                    <field name="gender"/>
+                    <field name="email"/>
+                    <field name="birth_date"/>
+                    <field name="age" string="Age"/>
+                    <field name="phone_number_to_disp" string="Phone Number"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="salary"/>
+                    <field name="joining_year"/>
+                    <field name="technology_working_on"/>
+                </tree>
+            </field>
+        </record>
+        <record id="wb_employee_form_view" model="ir.ui.view">
+            <field name="name">wb.employee.form.view</field>
+            <field name="model">wb.employee</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Employee Information">
+                            <div class="row justify-content-between position-relative w-100 m-0 mb-2">
+                                <div class="oe_title mw-75 ps-0 pe-2">
+                                    <h1 class="d-flex flex-row align-items-center">
+                                        <field name="reference"
+                                               style="font-size: min(4vw, 2.6rem);" readonly="1"/>
+                                    </h1>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="name" />
+                            <field name="email" widget="valid_email"/>
+                            <field name="phone_number" string="Phone Number"/>
+                            <field name="gender"/>
+                            <field name="birth_date"/>
+                            <field name="age" string="age"/>
+                        </group>
+                        <group string="Employment Details">
+                            <field name="currency_id"/>
+                            <field name="salary"/>
+                            <field name="joining_year"/>
+                            <field name="technology_working_on"/>
+                        </group>
+                        <group string="Hobbies">
+                            <field name="hobby_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="wb_employee_graph_view" model="ir.ui.view">
+            <field name="name">wb.employee.graph.view</field>
+            <field name="model">wb.employee</field>
+            <field name="arch" type="xml">
+                <graph string="Employee Analysis">
+                    <field name="reference" type="row"/>
+                    <field name="salary"/>
+                </graph>
+            </field>
+        </record>
+        <record id="wb_employee_view_pivot" model="ir.ui.view">
+            <field name="name">wb.employee.view.pivot</field>
+            <field name="model">wb.employee</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <pivot string="Employee">
+                    <field name="name" type="col"/>
+                    <field name="reference" type="row"/>
+                    <field name="salary" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        <record id="wb_employee_view_search" model="ir.ui.view">
+            <field name="name">wb.employee.view.search</field>
+            <field name="model">wb.employee</field>
+            <field name="arch" type="xml">
+                <search string="Employees">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone_number"/>
+                    <field name="age"/>
+                    <filter string="Male" name="male_employees" domain="[('gender','=','male')]"/>
+                    <filter string="Female" name="female_employees" domain="[('gender','=','female')]"/>
+                    <group expand="1" string="Group By">
+                        <filter name="group_by_module" string="Gender" context="{'group_by' : 'gender'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="gender" string="Genders" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+        <record id="wb_employee_action" model="ir.actions.act_window">
+            <field name="name">Employees</field>
+            <field name="res_model">wb.employee</field>
+            <field name="context">{'search_default_female_employees':1}</field>
+            <field name="view_mode">tree,form,graph,kanban,pivot,search</field>
+        </record>
+        <record id="wb_hobby_action" model="ir.actions.act_window">
+            <field name="name">Hobbies</field>
+            <field name="res_model">wb.hobby</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="wb_employee_root_menu"
+                  name="Employees"/>
+
+        <menuitem id="wb_employee_sub_root_menu"
+                  name="Employee List"
+                  action="wb_employee_action"
+                  parent="wb_employee_root_menu"/>
+
+        <menuitem id="wb_employee_sub_hobby_menu"
+                  name="Hobby List"
+                  action="wb_hobby_action"
+                  parent="wb_employee_root_menu"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="templates" xml:space="preserve">
+    <t t-name="point_of_sale.ProductCategoryPopup">
+        <div class="popup">
+            <div class="popup-header">
+                <h2>Product Category</h2>
+            </div>
+            <div class="popup-body">
+                <t t-if="props.category &amp;&amp; props.category.productCategory">
+                    <div class="category-info">
+                        <strong>Category:</strong>
+                        <span t-esc="props.category.productCategory"/>
+                    </div>
+                </t>
+                <t t-if="!props.category || !props.category.productCategory">
+                    <div class="category-info">
+                        <strong>No category found!</strong>
+                    </div>
+                </t>
+            </div>
+            <div class="popup-footer">
+                <button t-on-click="cancel" class="btn btn-cancel">Cancel</button>
+            </div>
+        </div>
+    </t>
+</templates>

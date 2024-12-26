@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="point_of_sale.CategorySelector">
+        <div t-attf-class="{{props.class}} d-flex overflow-auto w-100 flex-grow-1">
+            <div class="d-flex p-1 bg-view">
+                <div t-foreach="props.categories" t-as="category" t-key="category.id"
+                    class="d-flex align-items-center">
+                    <i t-if="category_index != 0" t-attf-class="px-2 fa {{category.separator}}"
+                        t-att-style="`opacity: ${category.showSeparator ? 1 : 0};`"
+                        aria-hidden="true" />
+                    <button
+                        class="category-button btn btn-light d-flex flex-column align-items-center justify-content-center category-item p-1 h-100"
+                        style="max-width: 100px;"
+                        t-on-click="() => props.onClick(category.id)">
+                        <t t-if="props.showImage">
+                            <img t-if="category.imageUrl"
+                                class="rounded h-75"
+                                t-att-src="category.imageUrl"
+                                alt="Category" />
+                        </t>
+                        <i t-if="category.icon"
+                            t-attf-class="fa {{category.icon}}"
+                            aria-hidden="true" />
+                        <span t-if="category.name" class="w-100 text-center fs-5 inline-block text-truncate" t-esc="category.name" style="min-height: 1.2rem" />
+                    </button>
+                    <div class="d-flex align-items-center">
+                        <i aria-hidden="true" class="px-2 fa fa-caret-right" style="opacity: 0;"></i>
+                        <button class="category-button btn btn-light d-flex flex-column align-items-center justify-content-center category-item p-1"
+                                style="max-width: 100px; height: 120px;">
+                            <!-- Static Image Reference -->
+                            <img class="rounded" alt="Category" t-att-src="'/point_of_sale/static/src/img/0_chairs.png'" style="max-height: 70px;"/>
+                            <span class="w-100 text-center fs-5 inline-block text-truncate" style="min-height: 1.2rem;">Chairs</span>
+                        </button>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i aria-hidden="true" class="px-2 fa fa-caret-right" style="opacity: 0;"></i>
+                        <button class="category-button btn btn-light d-flex flex-column align-items-center justify-content-center category-item p-1" style="max-width: 100px; height: 120px;">
+                            <!-- Static Image Reference -->
+                            <img class="rounded" alt="Category" t-att-src="'/point_of_sale/static/src/img/0_desks.png'" style="max-height: 70px;"/>
+                            <span class="w-100 text-center fs-5 inline-block text-truncate" style="min-height: 1.2rem;">Desks</span>
+                        </button>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i aria-hidden="true" class="px-2 fa fa-caret-right" style="opacity: 0;"></i>
+                        <button class="category-button btn btn-light d-flex flex-column align-items-center justify-content-center category-item p-1" style="max-width: 100px; height: 120px;">
+                            <!-- Static Image Reference -->
+                            <img class="rounded" alt="Category" t-att-src="'/point_of_sale/static/src/img/0_food.png'" style="max-height: 70px;"/>
+                            <span class="w-100 text-center fs-5 inline-block text-truncate" style="min-height: 1.2rem;">Food</span>
+                        </button>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i aria-hidden="true" class="px-2 fa fa-caret-right" style="opacity: 0;"></i>
+                        <button class="category-button btn btn-light d-flex flex-column align-items-center justify-content-center category-item p-1" style="max-width: 100px; height: 120px;">
+                            <!-- Static Image Reference -->
+                            <img class="rounded" alt="Category" t-att-src="'/point_of_sale/static/src/img/0_drinks.png'" style="max-height: 70px;"/>
+                            <span class="w-100 text-center fs-5 inline-block text-truncate" style="min-height: 1.2rem;">Drinks</span>
+                        </button>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i aria-hidden="true" class="px-2 fa fa-caret-right" style="opacity: 0;"></i>
+                        <button class="category-button btn btn-light d-flex flex-column align-items-center justify-content-center category-item p-1" style="max-width: 100px; height: 120px;">
+                            <!-- Static Image Reference -->
+                            <img class="rounded" alt="Category" t-att-src="'/point_of_sale/static/src/img/0_misc.png'" style="max-height: 70px;"/>
+                            <span class="w-100 text-center fs-5 inline-block text-truncate" style="min-height: 1.2rem;">Misk</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

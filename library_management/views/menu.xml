@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="library_management"
+              name="Library Management"/>
+
+    <menuitem id="book_shelf"
+              name="Books"
+              parent="library_management"/>
+
+    <menuitem id="is_book"
+              name="Availability"
+              parent="book_shelf"
+              action="book_availability"/>
+
+    <menuitem id="library_book_categories"
+              name="Book Categories"
+              parent="book_shelf"
+              action="book_category"/>
+
+</odoo>

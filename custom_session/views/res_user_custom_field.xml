@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_users_simplified_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.simplified.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[2]" position="after">
+                    <group>
+                        <group string="Session Settings">
+                            <div style="display: flex; align-items: center;">
+                                <field name="session_count" placeholder="Timeout in seconds" class="oe_inline"
+                                       style="margin-right: 5px;height: 20px;"/>
+                                <span style="margin-right: 10px; height: 20px;">In Seconds</span>
+                                <button name="action_logout_all_devices"
+                                        type="object"
+                                        string="Logout of All Devices"
+                                        class="oe_inline btn-danger"
+                                        icon="fa-power-off"/>
+                            </div>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="access_res_users_custom_field" model="ir.model.access">
+            <field name="name">Access to res.users.custom</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="group_id" ref="base.group_user"/> <!-- Or use another group ID -->
+            <field name="perm_read" eval="True"/>  <!-- Allow read access -->
+            <field name="perm_write" eval="True"/> <!-- Allow write access -->
+            <field name="perm_create" eval="True"/> <!-- Disable create permission if needed -->
+            <field name="perm_unlink" eval="True"/> <!-- Disable delete permission if needed -->
+        </record>
+        <record id="view_logout_all_devices_wizard_form" model="ir.ui.view">
+            <field name="name">logout.all.devices.wizard.form</field>
+            <field name="model">logout.all.devices.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Logout of All Devices"
+                      style="max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+                    <group style="text-align: center;">
+                        <p style="font-size: 14px; color: #333; width:400px">Are you sure you want to log out from all
+                            devices?
+                        </p>
+                    </group>
+                    <footer style="display: flex; justify-content: space-between; align-items: center;">
+                        <button string="Yes" type="object" name="action_confirm_logout" class="btn btn-primary"
+                                style="padding: 6px 12px; font-size: 14px;"/>
+                        <button string="Cancel" class="btn btn-danger" special="cancel"
+                                style="padding: 6px 12px; font-size: 14px;"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_logout_all_devices_wizard" model="ir.actions.act_window">
+            <field name="name">Logout All Devices</field>
+            <field name="res_model">logout.all.devices.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

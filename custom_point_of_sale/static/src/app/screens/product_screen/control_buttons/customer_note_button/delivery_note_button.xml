@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-name="point_of_sale.OrderLineDeliveryNoteButton">
+        <button class="control-button btn btn-light rounded fw-bold shadow-sm" t-on-click="() => this.onClick()">
+            <i class="fa fa-truck me-2" style="font-size: 1.2rem; vertical-align: middle;"/>
+            <span style="vertical-align: middle;">Delivery Note</span>
+        </button>
+    </t>
+</templates>

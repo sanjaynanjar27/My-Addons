@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <record id="report_doctor_wizard" model="ir.actions.report">
+            <field name="name">Doctor Report</field>
+            <field name="model">hospital.doctor</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hospital_management.report_doctor_data_template</field>
+            <field name="report_file">hospital_management.report_doctor_data_template</field>
+            <field name="binding_model_id" ref="model_hospital_doctor"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

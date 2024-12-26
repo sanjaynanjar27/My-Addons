@@ -1,0 +1,10 @@
+<odoo>
+    <template id="redirect_to_log_out_template">
+        <div class="o_form_view">
+            <h3>Are you sure you want to log out from all devices?</h3>
+            <button type="button" class="btn btn-primary" t-on-click="log_out_all_devices()">Log Out From All Devices
+            </button>
+            <button type="button" class="btn btn-danger" t-on-click="close_template()">Cancel</button>
+        </div>
+    </template>
+</odoo>

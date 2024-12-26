@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_project_root"
+              name="Custom Project"
+              sequence="1">
+
+    <!-- Submenu -->
+    <menuitem id="menu_project_team_member_view"
+              name="Project Team Member"
+              action="project_team_member_view"
+              sequence="1" />
+
+    <menuitem id="res_state_city"
+              name="State City"
+              action="res_state_city_view" />
+
+    <menuitem id="project_teams"
+              name="Project Teams"
+              action="project_team_action"/>
+
+    </menuitem>
+</odoo>

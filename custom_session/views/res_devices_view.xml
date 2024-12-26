@@ -1,0 +1,84 @@
+<odoo>
+    <data>
+        <!--   User Confirm PAssword View  -->
+        <record id="view_user_login_password_confirm" model="ir.ui.view">
+            <field name="name">user.login.password.confirm.form</field>
+            <field name="model">user.login.password.confirm</field>
+            <field name="arch" type="xml">
+                <form string="Confirm Password">
+                    <sheet>
+                        <group>
+                            <field name="password" type="password"/>
+                        </group>
+                        <footer>
+                            <button string="Confirm" type="object" name="confirm_password" class="btn-primary"
+                                    context="{'active_id': active_id}"/>
+                            <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Kanban View -->
+        <record id="view_user_login_history_kanban" model="ir.ui.view">
+            <field name="name">user.login.history.kanban</field>
+            <field name="model">user.login.history</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="device_type"/>
+                    <field name="browser"/>
+                    <field name="ip_address"/>
+                    <field name="login_time"/>
+                    <field name="logout_time"/>
+                    <field name="session_id" invisible="1"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <article
+                                    class="o_kanban_record d-flex cursor-pointer flex-grow-1 flex-md-shrink-1 flex-shrink-0 flex-row align-items-center position-relative">
+                                <!-- Device Icon -->
+                                <span t-if="record.device_type.raw_value == 'desktop'" class="fa fa-laptop fs-1"
+                                      title="Computer" role="img" aria-label="Computer"></span>
+                                <span t-if="record.device_type.raw_value == 'mobile'" class="fa fa-mobile fs-1"
+                                      title="Mobile" role="img" aria-label="Mobile"></span>
+
+                                <!-- User Info -->
+                                <div class="d-flex flex-column ms-3">
+                                    <div class="d-flex align-items-center">
+                                        <span class="fw-bolder">
+                                            <t t-esc="record.browser.raw_value"/> <!-- Browser info -->
+                                        </span>
+                                        <span class="ms-2 text-success o_status o_status_green"></span>
+                                        <span class="ms-2 text-success o_status o_status_green"></span>
+                                        <button type="object"
+                                                class="btn btn-danger btn-sm ms-auto m-2"
+                                                title="Delete Session"
+                                                name="action_delete_session">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                    <span>
+                                        <t t-esc="record.ip_address.raw_value"/>
+                                    </span>
+                                    <span t-esc="record.login_time.raw_value"/>
+                                    <apan t-esc="record.session_id.raw_value"/>
+                                    <span t-if="record.logout_time.raw_value">
+                                        <t t-esc="record.logout_time.raw_value"/>
+                                    </span>
+                                </div>
+                            </article>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="action_user_login_history" model="ir.actions.act_window">
+            <field name="name">User Login History</field>
+            <field name="res_model">user.login.history</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_user_login_history_kanban"/>
+        </record>
+        <!-- Menu Item for User Login History -->
+        <menuitem id="menu_user_login_history" name="User Login History" parent="base.menu_custom"
+                  action="action_user_login_history"/>
+    </data>
+</odoo>

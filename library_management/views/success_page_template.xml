@@ -1,0 +1,19 @@
+<!-- success_page_template.xml -->
+<odoo>
+    <template id="success_template" name="Success Page">
+        <t t-call="website.layout">
+            <div class="container">
+                <h2 class="text-center">Form Submitted Successfully!</h2>
+                <div class="text-center">
+                    <img t-att-src="img" alt="Success" style="width: 400px; height: auto;"/>
+                </div>
+                <div class="text-center mt-4">
+                    <p>Your information has been successfully submitted.</p>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="/library/open_form" class="btn btn-secondary">Go Back</a>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

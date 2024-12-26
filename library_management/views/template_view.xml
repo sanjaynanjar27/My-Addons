@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="books_data_template" name="Books">
+            <t t-call="website.layout">
+                <div class="container mt-5">
+                    <t t-set="page_title" t-value="'Books List'"/>
+                    <h1 class="text-center" t-esc="page_title"/>
+                    <t t-set="selected_lang" t-value="request.params.get('language', 'en_US')"/>
+                    <t t-if="selected_lang == 'en_US'">
+                        <h1>Language: English</h1>
+                    </t>
+                    <t t-elif="selected_lang == 'ar_SY'">
+                        <h1>Language: Arabic</h1>
+                    </t>
+                    <t t-else="">
+                        <h1>Language: Other</h1>
+                    </t>
+                    <t t-if="request.env.user.has_group('base.group_administrator')">
+                        <h2>Welcome Admin! You have full control over the system.</h2>
+                    </t>
+                    <t t-elif="request.env.user.has_group('base.group_user')">
+                        <h2>Welcome User :
+                            <span t-esc="request.env.user.name"/>
+                            Enjoy browsing the books.
+                        </h2>
+                    </t>
+                    <t t-else="">
+                        <h2>Welcome, enjoy exploring and login</h2>
+                    </t>
+
+                    <t t-foreach="books" t-as="doc">
+                        <div class="book-entry">
+                            <h4 class="d-flex flex-row align-items-center">
+                                Book Name :
+                                <span t-esc="doc.name" t-attf-title="Book ID: {doc.id}"/>
+
+                                Author Name :
+                                <span t-esc="doc.author.name"/>
+                            </h4>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
