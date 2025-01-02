@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="crm_lead_view_tree_reporting" model="ir.ui.view">
+        <field name="name">add.project.team.to.project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="team_id"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Team Details">
+                    <!-- Enhanced Kanban Card with Reduced Width -->
+                    <div class="oe_kanban_card"
+                         style="width: 250px; border-radius: 10px; border: 1px solid #dcdcdc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f9f9f9; padding: 15px; margin-bottom: 20px;">
+                        <!-- Team Name (Primary) -->
+                        <div class="oe_kanban_details"
+                             style="margin-bottom: 10px; padding: 5px; background-color: #ffffff; border-radius: 5px; border: 1px solid #e0e0e0;">
+                            <field name="team_name" class="oe_kanban_primary"
+                                   style="font-size: 18px; font-weight: bold; color: #2c3e50; padding: 5px; display: block;"/>
+                        </div>
+
+                        <!-- Team Leader Name (Secondary) -->
+                        <div class="oe_kanban_details"
+                             style="margin-bottom: 10px; padding: 5px; background-color: #f2f2f2; border-radius: 5px; border: 1px solid #e0e0e0;">
+                            <field name="team_leader_name" class="oe_kanban_secondary"
+                                   style="font-size: 16px; font-weight: 600; color: #7f8c8d; padding: 5px; display: block;"/>
+                        </div>
+
+                        <!-- Team Member Names (Secondary) -->
+                        <div class="oe_kanban_details"
+                             style="padding: 5px; background-color: #f2f2f2; border-radius: 5px; border: 1px solid #e0e0e0;">
+                            <field name="team_member_names" class="oe_kanban_secondary"
+                                   style="font-size: 14px; color: #7f8c8d; padding: 5px; display: block; font-style: italic;"/>
+                        </div>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

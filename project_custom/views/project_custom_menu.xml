@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_project_root"
+                  name="Custom Project"
+                  sequence="1"/>
+
+        <menuitem id="menu_project_team_member_view"
+                  name="Project Team Member"
+                  action="project_team_member_view"
+                  parent="menu_project_root"
+                  sequence="1"/>
+
+
+        <menuitem id="project_config"
+                  parent="menu_project_root"
+                  name="Configuration"/>
+
+        <menuitem id="project_add_teams"
+                  name="Add Teams"
+                  parent="project_config"
+                  action="project_team_action"/>
+
+           <menuitem id="project_get_reports"
+                  name="Get Reports"
+                  parent="project_config"
+                  action="task_selection_range_report"/>
+
+        <menuitem id="project_city"
+                  name="Add City"
+                  parent="project_config"
+                  action="res_state_city_view"/>
+
+        <menuitem
+                name="Add Teams"
+                id="add_project_team_in_project"
+                parent="project.menu_project_config"
+                action="project_team_action" />
+
+    </data>
+
+</odoo>

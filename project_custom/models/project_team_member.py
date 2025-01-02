@@ -6,12 +6,15 @@ from PIL import Image
 class ProjectTeamMember(models.Model):
     _name = 'project.team.member'
     _description = 'Project Team Member Details'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
     _sql_constraints = {
         ('project_team_restrict_duplicates', 'UNIQUE(name)', 'You Can Not Copy User Information'),
         ('project_team_restrict_duplicate_phone', 'UNIQUE(mobile)', 'Not Valid Phone'),
     }
 
     name = fields.Char(string='Name', required=True)
+    member_email = fields.Char(string='Member Email', required=True)
     address = fields.Char(string='House Number', required=True)
     street = fields.Char(string="Street")
     street2=fields.Char(string="Street2")
@@ -37,6 +40,8 @@ class ProjectTeamMember(models.Model):
     info = fields.Html(string="Bio Data")
     is_active = fields.Boolean("Is Active?")
     timesheet_ids = fields.One2many('account.analytic.line',inverse_name="team_member_id",string='Associated Timesheets')
+    activity_ids = fields.One2many('mail.activity', 'res_id', string="Activities",
+                                   domain=[('res_model', '=', 'project.team.member')])
 
     def search_default_employee(self):
         return [('user_id', '=', 2)]

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="user_input_template" name="User Input List">
+        <t t-call="website.layout">
+            <div id="user_input_app"></div>
+        </t>
+    </template>
+</odoo>

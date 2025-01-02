@@ -1,0 +1,45 @@
+.team-kanban-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.team-kanban-card {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background-color: #fff;
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.team-kanban-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.team-kanban-card .team_name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.team-kanban-card .team_leader_name,
+.team-kanban-card .team_member_names {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-top: 10px;
+}
+
+.team-kanban-card .team_leader_name {
+    font-weight: 600;
+}
+
+.team-kanban-card .team_member_names {
+    margin-top: 5px;
+    font-style: italic;
+}

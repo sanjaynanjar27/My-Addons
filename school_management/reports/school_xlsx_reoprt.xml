@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-
         <!-- XLSX Report Template -->
         <template id="school_report_template_xlsx">
             <t t-call="web.external_layout">

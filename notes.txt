@@ -103,6 +103,7 @@ If you are encountering issues with the `create_link` function and you cannot us
 ### **Steps to Integrate**
 1. Create the function in the appropriate location (custom module or shared utility file).
 2. Update the import statements in files using `create_link` to reference your implementation.
+
 3. Restart the Odoo server to apply changes:
    ```bash
    python3 odoo-bin -c your_config_file.conf
@@ -267,3 +268,387 @@ class Users(models.Model):
 - Used `useEffect` to update the list based on certain conditions.
 - Created custom service with `useService` to handle list operations (add/remove items).
 - Enabled adding and removing items from the list dynamically with state management."
+
+
+
+savan _
+
+<templates xml:space="preserve" owl="1">
+    <t t-name="owl_task.MyComponentTemplate">
+        <!-- Search Bar Section -->
+        <div style="margin-bottom: 20px; width: 100%;">
+            <input type="text" t-on-keypress="onEnterKeyPress" placeholder="Search or Enter task..."
+                   style="width: 100%; padding: 12px; font-size: 18px; border-radius: 5px; border: 1px solid #ddd; box-sizing: border-box;"/>
+        </div>
+
+        <!-- Create List Button -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button t-on-click="onCreateNewList"
+                    style="padding: 12px 25px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s;">
+                Create New List
+            </button>
+        </div>
+
+        <!-- Current List Section -->
+        <div>
+            <ul style="list-style-type: none; padding-left: 0; margin-top: 20px;">
+                <t t-foreach="state.currentList" t-as="item" t-key="item" t-on-click="onClickItem">
+                    <li style="font-size: 16px; padding: 12px 20px; background-color: #F1F1F1; margin-bottom: 8px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">
+                        <span t-esc="item"/>
+                    </li>
+                </t>
+            </ul>
+        </div>
+
+        <!-- Old Lists Section -->
+        <div style="margin-top: 30px; display: flex; flex-wrap: wrap; gap: 20px;">
+            <t t-foreach="state.oldLists" t-as="oldList" t-key="oldList">
+                <div class="card"
+                     style="width: 280px; padding: 15px; background-color: #fff; border: 1px solid #e0e0e0; border-radius: 10px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                    <!-- Card Header -->
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 18px; font-weight: 500; margin: 0; color: #333;">List Items</h3>
+                    </div>
+                    <!-- Card Content (List of Items) -->
+                    <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                        <t t-foreach="oldList" t-as="item" t-key="item">
+                            <li style="font-size: 16px; padding: 8px 0; margin-bottom: 8px; background-color: #f7f7f7; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; transition: background-color 0.3s;">
+                                <span t-esc="item" style="flex: 1; padding-left: 10px; color: #555;"></span>
+                                <button
+                                    t-on-click="onClickDelete"
+                                    t-att-data-item="item"
+                                    style="font-size: 16px; color: #FF4C4C; background: none; border: none; cursor: pointer;">
+                                    ❌
+                                </button>
+                            </li>
+                        </t>
+                    </ul>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>
+
+
+
+
+___________________________
+
+
+my view
+
+
+<templates xml:space="preserve" owl="1">
+    <t t-name="owl_task.MyComponentTemplate">
+        <div style="margin-bottom: 20px;">
+            <input type="text" t-on-keypress="onEnterKeyPress" placeholder="Enter task..."
+                   style="width: 200px; padding: 10px; font-size: 16px; border: 2px solid #ccc; border-radius: 4px;"/>
+        </div>
+        <div>
+            <button t-on-click="onCreateNewList"
+                    style="padding: 10px 20px; font-size: 18px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Create New List
+            </button>
+            <ul style="list-style-type: disc; padding-left: 20px; margin-top: 20px;">
+                <li t-foreach="state.currentList" t-as="item" t-key="item" t-on-click="onClickItem"
+                    style="font-size: 18px; padding: 8px 0; cursor: pointer;">
+                    <span t-esc="item"/>
+                </li>
+            </ul>
+        </div>
+        <div style="margin-top: 30px; display: flex; flex-wrap: wrap;">
+            <t t-foreach="state.oldLists" t-as="oldList" t-key="oldList">
+                <div class="card"
+                     style="display: inline-block; width: 400px; padding: 20px; margin-right: 20px; background-color: #f4f4f4; border: 1px solid #ddd; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); vertical-align: top;">
+                    <h3 style="font-size: 24px; font-weight: bold; margin-bottom: 15px;">List Items
+                    <button style="margin-left:150px" class="btn btn-danger" t-on-click="deleteListIndex">🗑️</button>
+                    <button class="btn btn-secondary" t-on-click="onEditList" >✍🏻</button>
+                    </h3>
+                    <ul style="list-style-type: disc; padding-left: 20px;">
+                        <t t-foreach="oldList" t-as="item" t-key="item">
+                            <li style="font-size: 18px; padding: 8px 0; cursor: pointer;">
+                                <span t-on-click="onClickItem" t-esc="item"/>
+                                <button
+                                        t-on-click="onClickDelete"
+                                        t-att-data-item="item"
+                                        style="
+                                            margin-right: 8px;
+                                            color: red;
+                                            cursor: pointer;
+                                            background: transparent;
+                                            border: none;
+                                            outline: none;
+                                            padding: 0;
+                                            font-size: inherit;"> ❌ </button>
+                            </li>
+                        </t>
+                    </ul>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>
+
+Sanjay :"
+
+/** @odoo-module */
+
+const { Component, xml } = owl;
+import { registry } from "@web/core/registry";
+import { useState, useEffect } from "@odoo/owl";
+
+class MyComponent extends Component {
+    static template = "owl_task.MyComponentTemplate";
+
+    constructor() {
+        super(...arguments);
+        this.state = useState({
+            currentList: [],
+            oldLists: []  // 2D array to hold old lists
+        });
+    }
+
+    // Handle pressing 'Enter' to add items to the current list
+    onEnterKeyPress(event) {
+        if (event.key === "Enter" && event.target.value.trim() !== "") {
+            this.state.currentList.push(event.target.value.trim());
+            event.target.value = "";
+        }
+    }
+
+    // Handle creating a new list and moving the current list to oldLists
+    onCreateNewList() {
+        if (this.state.currentList.length > 0) {
+            this.state.oldLists.push([...this.state.currentList]);  // Add a copy of the current list to oldLists
+            this.state.currentList = [];  // Clear the current list after creating a new list
+        }
+    }
+
+    // Handle clicking an item (toggle strikethrough)
+    onClickItem(event) {
+        const currentStyle = event.target.style.textDecoration;
+        event.target.style.textDecoration = currentStyle === "line-through" ? "" : "line-through";
+    }
+
+    // Handle deleting an individual item from the list
+    onClickDelete(event) {
+        const itemText = event.target.dataset.item; // Get the item's text from the data attribute
+
+        // Ensure `oldLists` is a 2D array
+        if (!Array.isArray(this.state.oldLists) || !this.state.oldLists.every(Array.isArray)) {
+            console.error("state.oldLists is not a 2D array:", this.state.oldLists);
+            return;
+        }
+
+        let found = false;
+
+        // Iterate through each list in oldLists
+        this.state.oldLists.forEach((list, rowIndex) => {
+            const colIndex = list.indexOf(itemText);
+            if (colIndex > -1) {
+                list.splice(colIndex, 1);  // Remove the item from the sub-array
+                found = true;
+            }
+        });
+
+        // If the item was found and removed, check if the list is empty
+        this.state.oldLists = this.state.oldLists.filter(list => list.length > 0);  // Remove empty lists from oldLists
+
+        if (found) {
+            console.log("2D Array (oldLists) after deletion:", this.state.oldLists);
+        } else {
+            console.warn(`Item "${itemText}" not found in the 2D array.`);
+        }
+    }
+
+    // Handle deleting the entire list if it is empty
+    deleteListIndex() {
+        console.log("Delete List Button Called");
+        // You can implement this if you want to delete the entire list from oldLists
+    }
+
+    // Handle editing the list
+    onEditList() {
+        console.log("Edit List Button Called");
+    }
+
+    // Setup for any side effects, such as updating styles on list items
+    setup() {
+        useEffect(() => {
+            // Example: Update the color of list items when the currentList changes
+            const listItems = document.querySelectorAll("ul li span");
+            listItems.forEach((item, index) => {
+                item.style.color = index % 2 === 0 ? "red" : "blue";  // Alternating colors for items
+            });
+        }, () => [this.state.currentList]);  // Re-run effect when currentList changes
+    }
+}
+
+// Register the component in the actions category
+registry.category("actions").add("owl_task.todo_list", MyComponent);
+
+
+Savan
+
+/** @odoo-module */
+
+const { Component, xml } = owl;
+import { registry } from "@web/core/registry";
+import { useState, useEffect } from "@odoo/owl";
+
+class MyComponent extends Component {
+    static template = "owl_task.MyComponentTemplate";
+
+    constructor() {
+        super(...arguments);
+        this.state = useState({
+            currentList: [],
+            oldLists: []
+        });
+    }
+
+    onEnterKeyPress(event) {
+        if (event.key === "Enter" && event.target.value.trim() !== "") {
+            this.state.currentList.push(event.target.value.trim());
+            event.target.value = "";
+        }
+    }
+
+    onCreateNewList() {
+        if (this.state.currentList.length > 0) {
+            this.state.oldLists.push([...this.state.currentList]);
+            this.state.currentList = [];
+        }
+    }
+
+    onClickItem(event) {
+        const currentStyle = event.target.style.textDecoration;
+        event.target.style.textDecoration = currentStyle === "line-through" ? "" : "line-through";
+    }
+    onClickDelete(event) {
+    const itemText = event.target.dataset.item; // Get the item's text from the data attribute
+
+    // Ensure `oldLists` is a 2D array
+    if (!Array.isArray(this.state.oldLists) || !this.state.oldLists.every(Array.isArray)) {
+        console.error("state.oldLists is not a 2D array:", this.state.oldLists);
+        return;
+    }
+
+    console.log("2D Array (oldLists) before deletion:", this.state.oldLists);
+
+    let found = false;
+
+    this.state.oldLists.forEach((list, rowIndex) => {
+        const colIndex = list.indexOf(itemText);
+        if (colIndex > -1) {
+            console.log(`Value found: "${itemText}" at Row: ${rowIndex}, Column: ${colIndex}`);
+            list.splice(colIndex, 1); // Remove the item from the sub-array
+            found = true;
+        }
+    });
+
+    if (found) {
+        console.log("2D Array (oldLists) after deletion:", this.state.oldLists);
+    } else {
+        console.warn(`Item "${itemText}" not found in the 2D array.`);
+    }
+}
+deleteListIndex(){
+    console.log("Delete Button Called");
+}
+
+onEditList(){
+    console.log("Edit Button Called");
+}
+
+
+setup() {
+    useEffect(() => {
+        const listItems = document.querySelectorAll("ul li span");
+        listItems.forEach((item, index) => {
+            item.style.color = index % 2 === 0 ? "red" : "blue";
+        });
+    }, () => [this.state.currentList]);
+}
+
+}
+
+// Register the component in the actions category
+registry.category("actions").add("owl_task.todo_list", MyComponent);
+
+
+Access Rights its values
+______________________________________________________________
+(0, 0,  { values })    link to a new record that needs to be created with the given values dictionary
+(1, ID, { values })    update the linked record with id = ID (write *values* on it)
+(2, ID)                remove and delete the linked record with id = ID (calls unlink on ID, that will delete the object completely, and the link to it as well)
+(3, ID)                cut the link to the linked record with id = ID (delete the relationship between the two objects but does not delete the target object itself)
+(4, ID)                link to existing record with id = ID (adds a relationship)
+(5)                    unlink all (like using (3,ID) for all linked records)
+(6, 0, [IDs])          replace the list of linked IDs (like using (5) then (4,ID) for each ID in the list of IDs)
+
+
+----------------------------------------------------------------
+how to change language from database:
+
+select id, name, lang from res_partner where lang like 'guj%';
+
+Updated language
+
+update  res_partner set lang = 'en_US'  where lang like 'guj_UD';
+
+deleting language from table res_lang
+
+odoo_17_test=# delete from res_lang where code like 'guj_UD';\
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cols from project_task;
+
+select project_id, partner_id, company_id,parent_id,create_uid,name,priority,state,description,active,create_date,date_end,date_deadline,user_id from project_task;
+
+
+
+
+cols from company id
+select name,email,phone from res_company;
+
+
+cols from user_id 
+select login from res_users;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

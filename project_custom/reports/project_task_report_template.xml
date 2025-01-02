@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="project_task_report_template">
+        <t t-call="web.html_container">
+            <div class="page">
+                <h2 style="text-align:center; color: #4CAF50;">Project Task Report</h2>
+
+                <t t-foreach="tasks" t-as="task">
+                    <div style="margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                        <h3 style="color: #333; font-size: 20px;">Task Name: <span style="font-weight: bold; color: #4CAF50;" t-esc="task['name']"/></h3>
+
+                        <div style="margin-bottom: 15px;">
+                            <p style="font-size: 16px; color: #555;">User: <span t-esc="task['user_id']['name']" style="font-weight: bold; color: #4CAF50;"/></p>
+                            <p style="font-size: 16px; color: #555;">Company: <span t-esc="task['company_id']['name']" style="font-weight: bold; color: #4CAF50;"/></p>
+                            <p style="font-size: 16px; color: #555;">Email: <span t-esc="task['company_id']['email']" style="font-weight: bold; color: #4CAF50;"/></p>
+                            <p style="font-size: 16px; color: #555;">Phone: <span t-esc="task['company_id']['phone']" style="font-weight: bold; color: #4CAF50;"/></p>
+                        </div>
+
+                        <h4 style="color: #333; font-size: 18px; border-bottom: 2px solid #ddd; padding-bottom: 5px;">Project Information</h4>
+
+                        <!-- Table for Project Information -->
+                        <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #f2f2f2;">
+                                    <th style="padding: 10px; text-align: left; font-size: 14px; color: #555;">Field</th>
+                                    <th style="padding: 10px; text-align: left; font-size: 14px; color: #555;">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-size: 14px;">Company</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-size: 14px;" t-esc="task['project_info']['company_id']"/>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-size: 14px;">Start Date</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-size: 14px;" t-esc="task['project_info']['date_start']"/>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-size: 14px;">Date</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-size: 14px;" t-esc="task['project_info']['date']"/>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-size: 14px;">Description</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-size: 14px;">
+                                        <!-- Render HTML content of description field -->
+                                        <span t-raw="task['project_info']['description']"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-size: 14px;">Team Name</td>
+                                    <td style="padding: 10px; border: 1px solid #ddd; font-size: 14px;" t-esc="task['project_info']['team_name']"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

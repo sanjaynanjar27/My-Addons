@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="project_task_search_inherit" model="ir.ui.view">
+        <field name="name">Project Task State Field Visibility</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form_base"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <filter name="working_hours_less_than_five"
+                        string="Working Hours &lt; 5"
+                        domain="[('working_hours_close', '&lt;' ,5)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

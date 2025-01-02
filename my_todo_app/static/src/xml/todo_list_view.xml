@@ -1,0 +1,19 @@
+<odoo>
+    <templates name="my_todo_app.TodoListView">
+        <t t-name="my_todo_app.TodoList">
+            <div class="todo-list">
+                <input
+                    type="text"
+                    t-model="state.newTaskName"
+                    placeholder="Add a new task"
+                />
+                <button t-on-click="addTask">Add Task</button>
+                <div>
+                    <t t-foreach="state.tasks" t-as="task" t-key="task.id">
+                        <TodoItem task="task" onToggle="toggleTask" onRemove="removeTask" />
+                    </t>
+                </div>
+            </div>
+        </t>
+    </templates>
+</odoo>

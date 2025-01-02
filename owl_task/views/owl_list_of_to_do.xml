@@ -5,8 +5,5 @@
         <field name="tag">owl_task.todo_list</field>
     </record>
 
-    <menuitem name="OWL Task" id="menu_owl_tutorial" sequence="10">
-        <menuitem name="ToDo List" id="menu_owl_todo_dashboard" sequence="10"
-                  action="action_owl_todo_dashboard"/>
-    </menuitem>
+    <menuitem name="OWL Task" id="menu_owl_tutorial" sequence="10"  action="action_owl_todo_dashboard" />
 </odoo>

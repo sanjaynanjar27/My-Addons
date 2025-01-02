@@ -1,0 +1,13 @@
+<odoo>
+    <templates name="my_todo_app.TodoItemView">
+        <t t-name="my_todo_app.TodoItem">
+            <div class="todo-item">
+                <input type="check" t-att-checked="props.task.completed" t-on-click="toggleTask" />
+                <span t-att-class="props.task.completed ? 'completed' : ''">
+                    <t t-esc="props.task.name" />
+                </span>
+                <button t-on-click="removeTask">X</button>
+            </div>
+        </t>
+    </templates>
+</odoo>

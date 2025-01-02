@@ -19,6 +19,8 @@ Key Features:
     'website':     'https://www.yourschoolmanagement.com',
     'depends':     ['base', 'mail', 'board', 'website','product'],
     'data':        [
+        'security/schools_access_group.xml',
+        'security/ir.model.access.csv',
         'views/school_setting.xml',
         'data/sequence.xml',
         'views/streams_view.xml',
@@ -30,8 +32,6 @@ Key Features:
         'reports/school_report.xml',
         'reports/school_template.xml',
         'views/menu.xml',
-        'security/ir.model.access.csv',
-        'security/schools_access_group.xml',
         'reports/school_xlsx_reoprt.xml',
         'views/school_template.xml',
     ],

@@ -14,12 +14,12 @@ class Employee(models.Model):
     _description = 'Custom Employee'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
-    reference = fields.Char(string="Emp ID", default="New", required=True)
+    reference = fields.Char(string="Emp ID", default="New", required=True, copy=False)
     gender = fields.Selection([('male', 'Male'), ('female', 'Female')], required=True, track_visibility="onchange",
                               index=True)
     name = fields.Char(string='Name', required=False, copy=False, index=True)
     email = fields.Char(string='Email', required=True, track_visibility='always', default="@gmail.com", index=True)
-    phone_number = fields.Char(string='Phone Number', required=True)
+    phone_number = fields.Char(string='Phone Number',default='123123112', required=True)
     currency_id = fields.Many2one('res.currency', 'Currency')
     salary = fields.Monetary(string='Salary')
     joining_year = fields.Char(string='Joining Year')
@@ -38,7 +38,8 @@ class Employee(models.Model):
 
     @api.model
     def create(self, vals):
-        if not vals.get('reference'):
+        data = self.env['wb.employee'].search([]).read()
+        if not vals.get('reference') or vals.get('reference') in data:
             vals['reference'] = self.env['ir.sequence'].next_by_code('emp.number')
 
         emp = super(Employee, self).create(vals)

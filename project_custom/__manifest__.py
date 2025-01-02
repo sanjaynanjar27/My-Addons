@@ -22,19 +22,39 @@
                 'contacts',
                 'digest',
                 'phone_validation',
+                'project',
                 ],
 
     'data': [
+        'security/security.xml',
+        'data/send_reminder.xml',
+        'data/mail_template.xml',
+        'views/restrict_mail_field.xml',
+        'views/settings_view.xml',
+        'views/add_approval_stage.xml',
         'security/ir.model.access.csv',
+        'views/add_team_to_project.xml',
         'views/project_team_view.xml',
         'views/city_view.xml',
         'views/project_team_member_view.xml',
         'data/sequance.xml',
-        'views/menu.xml',
+        'reports/project_task_xlsx_report.xml',
+        'wizard/add_team_member_wizard.xml',
+        'views/project_task_stage.xml',
+        'views/search_filter_inherit.xml',
+        'reports/project_task_within_date_range.xml',
+        'reports/project_task_report_template.xml',
+        'views/project_custom_menu.xml',
     ],
     'demo': [
+        'project_custom/demo/project_demo.xml',
 
     ],
+    'assets': {
+        'web.assets_backend': [
+            'project_custom/static/src/css/style.css',
+        ],
+    },
     'installable': True,
     'application': True,
 }

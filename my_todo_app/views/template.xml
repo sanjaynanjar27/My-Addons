@@ -1,0 +1,7 @@
+<odoo>
+    <template id="button_with_todo_list" name="Button with TODO List">
+        <t t-call="website.layout">
+            <div id="todo_list_container"></div>
+        </t>
+    </template>
+</odoo>

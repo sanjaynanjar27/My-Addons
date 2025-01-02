@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="global_credit_limit_view" model="ir.ui.view">
+        <field name="name">res.config.settings.credit.limit</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="1"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[hasclass('oe_form_configuration')]" position="inside">
+                <div class="app_settings_block" data-string="Set Credit Limit Globally"
+                     string="Credit Limit" data-key="credit_limit_global">
+                    <h2 style="color: #4A90E2; margin-bottom: 10px; font-weight: bold;">
+                        Global Credit Limit Configuration
+                    </h2>
+                    <div class="row mt16 mb16">
+                        <div class="col-6">
+                            <label for="global_credit_limit" style="font-size: 14px; font-weight: 600; color: #333333;">
+                                Set Global Credit Limit
+                            </label>
+                            <field name="global_credit_limit" class="o_form_field" options="{'always_reload': True}"
+                                   style="margin-left: 10px;"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

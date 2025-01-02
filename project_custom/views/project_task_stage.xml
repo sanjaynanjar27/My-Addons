@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="project_task_form_inherit" model="ir.ui.view">
+        <field name="name">Project Task State Field Visibility</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('d-flex') and hasclass('justify-content-end') and hasclass('o_state_container')]"
+                   position="after">
+                <field name="is_state_visible" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[hasclass('d-flex') and hasclass('justify-content-end') and hasclass('o_state_container')]"
+                   position="attributes">
+                <attribute name="invisible">not is_state_visible</attribute>
+            </xpath>
+             <xpath expr="//field[@name='state']"
+                   position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

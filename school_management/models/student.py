@@ -117,6 +117,7 @@ class Students(models.Model):
     def school_demo(self):
         print(self, "This is simple function trying to run inside School Students Model")
 
+    # No more applicable in odoo 17
     # ====================
     # name_get() Function
     # ====================

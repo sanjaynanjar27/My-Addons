@@ -1,0 +1,22 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Email Template for Task Deadline Warning -->
+        <record id="email_template_task_deadline_warning" model="mail.template">
+            <field name="name">Task Deadline Warning</field>
+            <field name="model_id" ref="project.model_project_task"/>
+            <field name="subject">Reminder: Deadline for Task '${object.name}'</field>
+            <field name="email_from">${(user.email or 'no-reply@yourcompany.com')}</field>
+            <field name="email_to">${(object.project_id.team_id.team_members.mapped('email') | join(', '))}</field>
+            <field name="body_html">
+                <![CDATA[
+                    <p>Dear ${recipient.name},</p>
+                    <p>This is a reminder that the deadline for the task <strong>${object.name}</strong>
+                    in the project <strong>${object.project_id.name}</strong> is today (${(object.date_deadline)}).</p>
+                    <p>Kindly ensure it is completed on time.</p>
+                    <p>Best Regards,<br/>Project Management Team</p>
+                ]]>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>
