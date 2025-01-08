@@ -3,6 +3,7 @@ import base64
 from io import BytesIO
 from PIL import Image
 
+
 class ProjectTeamMember(models.Model):
     _name = 'project.team.member'
     _description = 'Project Team Member Details'
@@ -17,12 +18,13 @@ class ProjectTeamMember(models.Model):
     member_email = fields.Char(string='Member Email', required=True)
     address = fields.Char(string='House Number', required=True)
     street = fields.Char(string="Street")
-    street2=fields.Char(string="Street2")
+    street2 = fields.Char(string="Street2")
     country_id = fields.Many2one("res.country", string="Country")
     state_id = fields.Many2one(
         "res.country.state", string="State",
         domain="[('country_id', '=?', country_id)]")
-    city = fields.Many2one('res.state.cities',string="City",domain="[('state_id', '=?', state_id),('country_id', '=?', country_id)]")
+    city = fields.Many2one('res.state.cities', string="City",
+                           domain="[('state_id', '=?', state_id),('country_id', '=?', country_id)]")
     user_id = fields.Many2one(
         "res.users",
         string="User",
@@ -34,12 +36,13 @@ class ProjectTeamMember(models.Model):
     )
     mobile = fields.Char(string="Phone")
     zip = fields.Char(string="Zip")
-    gender = fields.Selection([('male','Male'),('female','Female')], required = True)
+    gender = fields.Selection([('male', 'Male'), ('female', 'Female')], required=True)
     date_of_birth = fields.Date(string="Date of Birth")
     photo = fields.Binary(string="Upload Identity")
     info = fields.Html(string="Bio Data")
     is_active = fields.Boolean("Is Active?")
-    timesheet_ids = fields.One2many('account.analytic.line',inverse_name="team_member_id",string='Associated Timesheets')
+    timesheet_ids = fields.One2many('account.analytic.line', inverse_name="team_member_id",
+                                    string='Associated Timesheets')
     activity_ids = fields.One2many('mail.activity', 'res_id', string="Activities",
                                    domain=[('res_model', '=', 'project.team.member')])
 
@@ -49,7 +52,7 @@ class ProjectTeamMember(models.Model):
     def create(self, vals):
         res = super(ProjectTeamMember, self).create(vals)
         if vals.get('name'):
-            user = self.env['res.users'].create({'name': vals['name'],'login': vals['name']})
+            user = self.env['res.users'].create({'name': vals['name'], 'login': vals['member_email']})
         return res
 
 
@@ -65,5 +68,4 @@ class CountryStateCities(models.Model):
 
 class TimeSheetInverseModel(models.Model):
     _inherit = 'account.analytic.line'
-    team_member_id = fields.Many2one('project.team.member',inverse = "timesheet_ids", string='Team Member')
-
+    team_member_id = fields.Many2one('project.team.member', inverse="timesheet_ids", string='Team Member')

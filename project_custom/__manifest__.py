@@ -23,10 +23,14 @@
                 'digest',
                 'phone_validation',
                 'project',
+                'hr_timesheet',
                 ],
 
     'data': [
         'security/security.xml',
+        'data/website_menu.xml',
+        'data/web_form_template.xml',
+        # 'security/rec_rules.xml',
         'data/send_reminder.xml',
         'data/mail_template.xml',
         'views/restrict_mail_field.xml',
@@ -48,11 +52,11 @@
     ],
     'demo': [
         'project_custom/demo/project_demo.xml',
-
     ],
     'assets': {
         'web.assets_backend': [
             'project_custom/static/src/css/style.css',
+            'project_custom/static/src/js/chatter.js',
         ],
     },
     'installable': True,

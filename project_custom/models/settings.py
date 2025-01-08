@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 
+
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
@@ -24,7 +25,6 @@ class ResConfigSettings(models.TransientModel):
         res.update(
             global_credit_limit=float(icp.get_param('res.config.global_credit_limit', default=0.0))
         )
-        print(f"\n================================{res}")
 
         i_want = float(icp.get_param('res.config.global_credit_limit'))
 

@@ -1,7 +1,8 @@
 from odoo import api, models, fields
-from odoo.exceptions import ValidationError,UserError
+from odoo.exceptions import ValidationError, UserError
 from datetime import datetime
 import logging
+from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
@@ -9,7 +10,6 @@ _logger = logging.getLogger(__name__)
 class ProjectTasks(models.Model):
     _inherit = 'project.task'
     _order = 'name asc'
-
 
     user_id = fields.Many2one('res.users', string="Assigned User")
     is_state_visible = fields.Boolean(compute='_compute_is_state_visible', store=True)
@@ -78,17 +78,17 @@ class ProjectTasks(models.Model):
         for task in self:
             task.is_state_visible = task.state != '1_done'
 
-
     def unlink(self):
         if self.state == '01_in_progress':
             raise UserError("Can not delete Task while it's Under Progress!")
         return super(ProjectTasks, self).unlink()
 
-
     @api.model
     def add_priority_to_multiple_tasks(self):
+        user_id = request.session.uid
+        user_project_tasks = request.env['project.task'].search(
+            [('project_id', '!=', False), ('display_in_project', '=', True), ('user_ids', 'in', [23])])
+        print(user_project_tasks)
         active_ids = self.env.context.get('active_ids', [])
-        print(active_ids)
         selected_tasks = self.env['project.task'].browse(active_ids)
         selected_tasks.priority = '1'
-        print(selected_tasks)

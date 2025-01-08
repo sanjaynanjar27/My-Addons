@@ -4,3 +4,4 @@ access_res_state_cities,access.res.state.cities,model_res_state_cities,base.grou
 access_res_project_team,access.access.project.team,model_project_team,project_team_access_management,1,1,1,1
 access_project_team_add_member_wizard,access.project.team.add.member.wizard,model_project_team_add_member_wizard,base.group_user,1,1,1
 access_select_date_range_wizard,access.select.date.range.wizard,model_select_date_range_wizard,base.group_user,1,1,1,1
+

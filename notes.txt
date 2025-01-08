@@ -639,16 +639,9 @@ cols from user_id
 select login from res_users;
 
 
+select company_id, date_start,date,date,description,team_name from project_project
 
-
-
-
-
-
-
-
-
-
+parent_id,res_id,author_id,subject,model,message_type,email_from,message_id
 
 
 

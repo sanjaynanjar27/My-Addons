@@ -1,17 +1,18 @@
 from odoo import api, models, fields
 from datetime import date
 
+
 class ProjectTeam(models.Model):
     _name = 'project.team'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Project Team Module Documentation'
 
     # add reference for team name 001/name/date
-    reference = fields.Char('Code',default='New', trace=True, copy=False)
+    reference = fields.Char('Code', default='New', trace=True, copy=False)
     name = fields.Char(string='Team Name', required=True)
-    team_members = fields.Many2many('project.team.member', required=True, string="Team Members In Team",tracking=True)
+    team_members = fields.Many2many('project.team.member', required=True, string="Team Members In Team", tracking=True)
     team_leader = fields.Many2one('res.users', required=True, string="Team Leader")
-    is_active = fields.Boolean(string='Is Active', required=True,tracking=True)
+    is_active = fields.Boolean(string='Is Active', required=True, tracking=True)
 
     @api.model
     def create(self, vals):
@@ -25,11 +26,12 @@ class ProjectTeam(models.Model):
         return {
             'name': 'Team Members',
             'type': 'ir.actions.act_window',
-            'res_model':'project.team.member',
+            'res_model': 'project.team.member',
             'view_mode': 'tree,form',
             'domain': [('id', 'in', self.team_members.ids)],
             'target': 'current',
         }
+
     @api.model
     def add_user_to_selected_teams(self):
         active_ids = self.env.context.get('active_ids', [])
@@ -54,4 +56,3 @@ class ProjectTeam(models.Model):
         # for team in selected_teams:
         #     if member_id not in team.team_members:
         #         team.team_members = [(4, member_id.id)]  # 4 means "add" in Many2many fields
-

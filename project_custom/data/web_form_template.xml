@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="web_form_template">
+            <t t-call="website.layout">
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card shadow-lg">
+                                <div class="card-header text-center">
+                                    <h3>Submit Details</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form action="/crm/crm_lead_form/" method="POST">
+                                        <div class="form-group">
+                                            <label for="name">Name:</label>
+                                            <input type="text" id="name" name="name" class="form-control"
+                                                   required="required"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="partner_ids">Partner</label>
+                                            <select id="partner_ids" name="partner_ids" class="form-control"
+                                                    required="required">
+                                                <t t-foreach="partner_ids" t-as="partner">
+                                                    <option t-att-value="partner.id" t-esc="partner.name"></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email" name="email"
+                                                   class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Phone Number</label>
+                                            <input type="tel" id="phone" name="phone"
+                                                   class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="expected_revenue">Expected Revenue</label>
+                                            <input type="expected_revenue" id="expected_revenue" name="expected_revenue"
+                                                   class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="probability">Probability :
+                                                <small class="form-text text-muted">
+                                                    <span id="percentageDisplay">50%</span>
+                                                </small>
+                                            </label>
+                                            <input type="range" id="probability" name="probability"
+                                                   class="form-control" min="0" max="100"
+                                                   oninput="document.getElementById('percentageDisplay').innerText = this.value + '%'"/>
+                                        </div>
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

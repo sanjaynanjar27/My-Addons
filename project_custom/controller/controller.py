@@ -2,9 +2,40 @@ from odoo import http
 from odoo.http import request
 from io import BytesIO
 import xlsxwriter
+from odoo.exceptions import UserError
 
 
 class ProjectTaskReportController(http.Controller):
+
+    @http.route('/crm_lead', auth='public', website=True)
+    def web_form(self, **kwargs):
+        partner_ids = request.env['res.partner'].sudo().search([])
+        return request.render('project_custom.web_form_template', {'partner_ids': partner_ids})
+
+    @http.route('/crm/crm_lead_form/', type='http', auth='public', methods=['POST'], csrf=True, website=True)
+    def submit_form(self, **args):
+        name = args.get('name')
+        partner_id = int(args.get('partner', 0))
+        email_from = args.get('email')
+        phone = args.get('phone')
+        probability = args.get('probability')
+        expected_revenue = args.get('expected_revenue')
+        print(name, email_from, probability, partner_id, phone)
+
+        result = request.env['crm.lead'].sudo().create({
+            'name': name,
+            'partner_assigned_id': partner_id,
+            'email_from': email_from,
+            'phone': phone,
+            'probability': probability,
+            'expected_revenue': expected_revenue
+        })
+
+        if result:
+            return request.redirect('/contactus-thank-you')
+        else:
+            UserError("Data Not Submitted")
+
     @http.route('/project/task/report/xlsx', type='http', auth='user', methods=['GET'], csrf=False)
     def generate_xlsx_report(self, **kwargs):
         start_date = kwargs.get('start_date')

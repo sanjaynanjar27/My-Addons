@@ -2,6 +2,7 @@ from odoo import fields, api, models
 from odoo.http import request
 from odoo.exceptions import UserError
 
+
 class SelectDateRangeWizard(models.TransientModel):
     _name = 'select.date.range.wizard'
     _inherit = ['startend.mixin']

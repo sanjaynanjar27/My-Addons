@@ -1,6 +1,6 @@
 from . import project_team_member
-from . import  res_user
-from . import  project_team
+from . import res_user
+from . import project_team
 from . import project
 from . import project_task
 from . import start_end_mixin
@@ -8,4 +8,6 @@ from . import project_task_check_list
 from . import res_partner
 from . import mail
 from . import settings
-from . import  purchase_order
+from . import purchase_order
+from . import account_analytic_line
+from . import discuss_channel_members

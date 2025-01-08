@@ -21,7 +21,7 @@
                   parent="project_config"
                   action="project_team_action"/>
 
-           <menuitem id="project_get_reports"
+        <menuitem id="project_get_reports"
                   name="Get Reports"
                   parent="project_config"
                   action="task_selection_range_report"/>
@@ -35,7 +35,8 @@
                 name="Add Teams"
                 id="add_project_team_in_project"
                 parent="project.menu_project_config"
-                action="project_team_action" />
+                action="project_team_action"
+                groups="project.group_project_manager,base.group_system"/>
 
     </data>
 

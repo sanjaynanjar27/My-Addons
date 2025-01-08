@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="menu_create_crm_lead" model="website.menu">
+        <field name="name">CRM Lead</field>
+        <field name="url">/crm_lead</field>
+        <field name="page_id" ref="website.contactus_page"/>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">13</field>
+    </record>
+</odoo>

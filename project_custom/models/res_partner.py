@@ -12,7 +12,8 @@ class Partner(models.Model):
         There is at least one dot (.) after the @ symbol.
     """
 
-    restrict_mail = fields.Boolean(string='Restrict Mail?', default=False,help="If True Mails Will be restricted for Partner and won't be able to receive Alerts Or Mails.")
+    restrict_mail = fields.Boolean(string='Restrict Mail?', default=False,
+                                   help="If True Mails Will be restricted for Partner and won't be able to receive Alerts Or Mails.")
     credit_limit = fields.Float(string="User Credit Limit", required=True)
 
     _sql_constraints = [
@@ -24,12 +25,8 @@ class Partner(models.Model):
          'Email address is already been used.'),
     ]
 
-
-
     @api.constrains('credit_limit')
     def validate_credit_limit(self):
         for record in self:
             if record.credit_limit < 0:
                 raise models.ValidationError("Credit Limit cannot be negative.")
-
-

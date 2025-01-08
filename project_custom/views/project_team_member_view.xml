@@ -180,7 +180,7 @@
                     <sheet>
                         <group>
                             <field name="start_date" required="1"/>
-                            <field name="end_date" required="1" />
+                            <field name="end_date" required="1"/>
                             <field name="report_type" widget="radio" required="1"/>
                         </group>
                     </sheet>

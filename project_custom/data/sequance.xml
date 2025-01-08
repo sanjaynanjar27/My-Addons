@@ -4,7 +4,7 @@
         <record id="seq_project_team_reference" model="ir.sequence">
             <field name="name">Project Team Reference</field>
             <field name="code">project.team.reference.1</field>
-            <field name="prefix"> </field> <!-- Static prefix part -->
+            <field name="prefix"></field> <!-- Static prefix part -->
             <field name="padding">3</field>
         </record>
     </data>

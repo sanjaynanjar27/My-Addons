@@ -1,6 +1,7 @@
 from odoo import api, models, fields
 from odoo.exceptions import ValidationError
 
+
 class AbstractStartEndDateMixin(models.AbstractModel):
     _name = 'startend.mixin'
     _description = 'Mixin for models with start and end dates'
@@ -13,6 +14,7 @@ class AbstractStartEndDateMixin(models.AbstractModel):
         for record in self:
             if record.start_date and record.end_date and record.start_date > record.end_date:
                 raise ValidationError("Start date cannot be after end date.")
+
 
 class ProjectCustom(models.Model):
     _name = 'project.custom'

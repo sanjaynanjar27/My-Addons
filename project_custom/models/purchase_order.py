@@ -1,15 +1,17 @@
-from odoo import fields , models, api
+from odoo import fields, models, api
 from odoo.http import request
 from odoo.exceptions import ValidationError
 import logging
 
-_logger  = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
-    approval_state = fields.Selection([('draft','Draft'),('first_approval' , 'First Approval'),('second_approval','Second Approval')], default='draft', string="User Approval State", readonly=True)
+    approval_state = fields.Selection(
+        [('draft', 'Draft'), ('first_approval', 'First Approval'), ('second_approval', 'Second Approval')],
+        default='draft', string="User Approval State", readonly=True)
 
     def button_confirm(self):
         for order in self:
