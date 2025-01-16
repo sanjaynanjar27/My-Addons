@@ -105,7 +105,6 @@
                 overflow-x: auto; /* Horizontal scroll if needed */
                 padding: 5px 0; /* Add padding for spacing */
                 }
-
             </style>
             <div class="container mt-5">
                 <div class="row">
