@@ -11,6 +11,7 @@ class Patient(models.Model):
     _inherit = ["mail.thread"]
 
     reference = fields.Char(strign="Reference", default="New")
+    initial_id = fields.Many2one('name.initials',strign="Initial")
     name = fields.Char(string="Name", required=True, tracking=True)
     phone = fields.Char(string="Phone Number", required=True, tracking=True)
     date_of_birth = fields.Date(string="Date of Birth", tracking=True)
@@ -24,6 +25,7 @@ class Patient(models.Model):
     notes = fields.Text(string="Write Prescriptions and Notes", tracking=True)
     doctor = fields.Many2one('hospital.doctor', string='Doctor', tracking=True)
     appointment_ids = fields.One2many('hospital.appointment', "patient_id", string="Appointments")
+    state = fields.Selection([('draft','New'),('waiting','Waiting'),('in_appointment','On Going'),('cancelled','Cancelled'),('done','Done')],string='State')
 
     @api.model
     def create(self, vals):

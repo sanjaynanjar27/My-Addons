@@ -43,6 +43,7 @@ class ProjectTeamMember(models.Model):
     is_active = fields.Boolean("Is Active?")
     timesheet_ids = fields.One2many('account.analytic.line', inverse_name="team_member_id",
                                     string='Associated Timesheets')
+
     activity_ids = fields.One2many('mail.activity', 'res_id', string="Activities",
                                    domain=[('res_model', '=', 'project.team.member')])
 
@@ -68,4 +69,11 @@ class CountryStateCities(models.Model):
 
 class TimeSheetInverseModel(models.Model):
     _inherit = 'account.analytic.line'
-    team_member_id = fields.Many2one('project.team.member', inverse="timesheet_ids", string='Team Member')
+
+    class TimeSheetInverseModel(models.Model):
+        _inherit = 'account.analytic.line'
+
+        team_member_id = fields.Many2one(
+            'project.team.member',
+            string='Team Member'
+        )

@@ -603,27 +603,6 @@ odoo_17_test=# delete from res_lang where code like 'guj_UD';\
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 cols from project_task;
 
 select project_id, partner_id, company_id,parent_id,create_uid,name,priority,state,description,active,create_date,date_end,date_deadline,user_id from project_task;
@@ -643,5 +622,38 @@ select company_id, date_start,date,date,description,team_name from project_proje
 
 parent_id,res_id,author_id,subject,model,message_type,email_from,message_id
 
+__________________________________________________________________________________________
+
+xpath and its expresssions
+
+<record id = 'any id' model='ir.ui.view'>
+    <field name='name'>anya_namee</field>
+    <field name='model'>model.nmae</field>
+    <field name='inherit_id' ref='module_name.view_id_name' />
+    <field name='arch' type='xml'>
+
+        --  basic field added after certain field 
+        <xpath expr="//field[@name='user_id']" position="after">
+            <add any field youn  want to add>
+        </xpath>
+
+        -- simple example of field attribute changes by attribute xpath
+        <xpath expr="//field[@name='user_ids']" position='attribute'>
+            <attribute name="name_of_attribute for example (invisible)">Condition when it should be true or false</attribute>
+        </xpath>
+
+        -- Can add conditions also if you want attribute to be displayed at some condition then also we can use xpath
+        -- if you want to change any attribute value you can change by position as attribute then set attribute
 
 
+        you can set js by using . expr in xpath 
+
+        <xpath expr="." position = 'inside'>
+        </xpath>
+
+        we can also remove fields nby xpath 
+
+        add it inside form view at anywhere if you have specific form group then you can add it in group also 
+
+    </field> 
+</record>

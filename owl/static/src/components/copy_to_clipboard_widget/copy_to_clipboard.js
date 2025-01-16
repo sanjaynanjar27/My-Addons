@@ -9,6 +9,7 @@ export class CopyField extends Component {
         super.setup()
         console.log("Data is printed while Pressing Copy Button...")
         console.log(this.props.record.data.phone_number); // Check the properties passed to the widget
+        console.log(this.props.record.data)
         this.actionService = useService("action");  // Initialize the action service
     }
 

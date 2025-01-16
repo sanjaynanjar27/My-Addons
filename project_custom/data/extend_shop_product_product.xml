@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="product_listing_template_inherited_temolates" inherit_id="website_sale.products" active="True"
+                  name="Product Variants">
+            <xpath expr="//div[hasclass('o_wsale_products_grid_table_wrapper')]" position="inside">
+                <t t-if="products">
+                    <p>Can add Products here using inheritance</p>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

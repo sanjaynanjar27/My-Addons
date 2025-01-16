@@ -59,17 +59,17 @@ class Students(models.Model):
 
 
 
-    @property
-    def _sequence_monthly_regex(self):
-        return self.journal_id.sequence_override_regex or super()._sequence_monthly_regex
-
-    @property
-    def _sequence_yearly_regex(self):
-        return self.journal_id.sequence_override_regex or super()._sequence_yearly_regex
-
-    @property
-    def _sequence_fixed_regex(self):
-        return self.journal_id.sequence_override_regex or super()._sequence_fixed_regex
+    # @property
+    # def _sequence_monthly_regex(self):
+    #     return self.journal_id.sequence_override_regex or super()._sequence_monthly_regex
+    #
+    # @property
+    # def _sequence_yearly_regex(self):
+    #     return self.journal_id.sequence_override_regex or super()._sequence_yearly_regex
+    #
+    # @property
+    # def _sequence_fixed_regex(self):
+    #     return self.journal_id.sequence_override_regex or super()._sequence_fixed_regex
 
     def action_copy_phone_to_mobile(self):
         """

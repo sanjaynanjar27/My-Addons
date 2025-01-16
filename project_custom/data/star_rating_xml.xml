@@ -1,0 +1,16 @@
+<odoo>
+    <template id="star_rating_template">
+        <div class="o_card">
+            <h1>JavaScript Star Rating</h1>
+            <br />
+            <div class="o_rating_stars">
+                <span class="o_rating_star" data-rating="1">★</span>
+                <span class="o_rating_star" data-rating="2">★</span>
+                <span class="o_rating_star" data-rating="3">★</span>
+                <span class="o_rating_star" data-rating="4">★</span>
+                <span class="o_rating_star" data-rating="5">★</span>
+            </div>
+            <h3 id="output">Rating is: 0/5</h3>
+        </div>
+    </template>
+</odoo>

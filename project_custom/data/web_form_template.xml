@@ -1,60 +1,115 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
         <template id="web_form_template">
             <t t-call="website.layout">
-                <div class="container mt-5">
-                    <div class="row justify-content-center">
-                        <div class="col-md-6">
-                            <div class="card shadow-lg">
-                                <div class="card-header text-center">
-                                    <h3>Submit Details</h3>
-                                </div>
-                                <div class="card-body">
-                                    <form action="/crm/crm_lead_form/" method="POST">
-                                        <div class="form-group">
-                                            <label for="name">Name:</label>
-                                            <input type="text" id="name" name="name" class="form-control"
-                                                   required="required"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="partner_ids">Partner</label>
-                                            <select id="partner_ids" name="partner_ids" class="form-control"
-                                                    required="required">
-                                                <t t-foreach="partner_ids" t-as="partner">
-                                                    <option t-att-value="partner.id" t-esc="partner.name"></option>
-                                                </t>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">Email</label>
-                                            <input type="email" id="email" name="email"
-                                                   class="form-control"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="phone">Phone Number</label>
-                                            <input type="tel" id="phone" name="phone"
-                                                   class="form-control"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="expected_revenue">Expected Revenue</label>
-                                            <input type="expected_revenue" id="expected_revenue" name="expected_revenue"
-                                                   class="form-control"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="probability">Probability :
-                                                <small class="form-text text-muted">
-                                                    <span id="percentageDisplay">50%</span>
-                                                </small>
-                                            </label>
-                                            <input type="range" id="probability" name="probability"
-                                                   class="form-control" min="0" max="100"
-                                                   oninput="document.getElementById('percentageDisplay').innerText = this.value + '%'"/>
-                                        </div>
-                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                                    </form>
-                                </div>
+                <t t-set="title">Request a Quote |
+                    <t t-esc="website.name"/>
+                </t>
+                <style>
+                    /* Styling for 3D effect and wide card */
+                    .form-container {
+                    max-width: 80%; /* Adjusts the width to match the menu width */
+                    margin: auto;
+                    perspective: 1000px; /* Enables 3D perspective */
+                    }
+
+                    .form-card {
+                    background: #ffffff;
+                    border-radius: 10px;
+                    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Adds 3D shadow */
+                    transform: translateZ(0);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    }
+
+                    .form-card:hover {
+                    transform: translateZ(10px); /* Pops the card out slightly on hover */
+                    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3); /* Deepens shadow on hover */
+                    }
+
+                    .form-card .card-body {
+                    padding: 2rem; /* Adds space for better visual appeal */
+                    }
+
+                    .form-header {
+                    text-align: center;
+                    margin-bottom: 2rem;
+                    }
+
+                    .submit-btn {
+                        display: block;
+                        width: 50%; /* Makes the button wider */
+                        margin: 1rem auto; /* Centers the button horizontally */
+                        padding: 0.5rem 0;
+                        font-size: 1.1rem;
+                        font-weight: bold;
+                        text-align: center;
+                        background-color: #714B67; /* Updated button color */
+                        border: none;
+                        color: white;
+                        border-radius: 5px;
+                        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+                        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                    }
+                    .submit-btn:hover {
+                    background-color: #0056b3; /* Darker blue on hover */
+                    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3); /* Deepens shadow */
+                    }
+                </style>
+                <div class="container">
+                    <!-- Name Display -->
+                    <div class="row mt-4">
+                        <div class="col-12 text-center">
+                            <h3>Submit Details</h3>
+                        </div>
+                    </div>
+
+                    <!-- Form Section -->
+                    <div class="form-container mt-4">
+                        <div class="form-card">
+                            <div class="card-body">
+                                <form action="/crm/crm_lead_form/" method="POST">
+                                    <div class="form-group">
+                                        <label for="name">Name:</label>
+                                        <input type="text" id="name" name="name" class="form-control"
+                                               required="required"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="partner_ids">Partner</label>
+                                        <select id="partner_ids" name="partner_ids" class="form-control"
+                                                required="required">
+                                            <t t-foreach="partner_ids" t-as="partner">
+                                                <option t-att-value="partner.id" t-esc="partner.name"></option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" name="email"
+                                               class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input type="tel" id="phone" name="phone"
+                                               class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="expected_revenue">Expected Revenue</label>
+                                        <input type="expected_revenue" id="expected_revenue" name="expected_revenue"
+                                               class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="probability">Probability :
+                                            <small class="form-text text-muted">
+                                                <span id="percentageDisplay">50%</span>
+                                            </small>
+                                        </label>
+                                        <input type="range" id="probability" name="probability"
+                                               class="form-control" min="0" max="100"
+                                               oninput="document.getElementById('percentageDisplay').innerText = this.value + '%'"/>
+                                    </div>
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <button type="submit" class="submit-btn">Submit</button>
+                                </form>
                             </div>
                         </div>
                     </div>

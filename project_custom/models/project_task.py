@@ -69,11 +69,11 @@ class ProjectTasks(models.Model):
 
     @api.depends('state')
     def _compute_is_state_visible(self):
-        print(f"For State Update ID: {self.state}")
-        if self.state == '1_done':
-            self.date_end = datetime.now()
-        else:
-            self.date_end = False
+        for rec in self:
+            if rec.state == '1_done':
+                rec.date_end = datetime.now()
+            else:
+                rec.date_end = False
 
         for task in self:
             task.is_state_visible = task.state != '1_done'

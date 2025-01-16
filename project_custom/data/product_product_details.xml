@@ -1,0 +1,144 @@
+<odoo>
+    <template id="product_detail_template" name="Product Detail">
+        <t t-call="website.layout">
+            <style>
+                /* Minimal CSS for a sleek and compact product detail page */
+                .product-title {
+                font-size: 30px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                color: #333;
+                }
+
+                .product-image {
+                width: 100%;
+                border-radius: 8px;
+                transition: transform 0.3s ease;
+                }
+
+                .product-image:hover {
+                transform: scale(1.05);
+                }
+
+                .product-info {
+                padding-left: 15px;
+                font-size: 16px;
+                }
+
+                .product-price {
+                font-size: 22px;
+                font-weight: bold;
+                color: #28a745;
+                margin-top: 10px;
+                }
+
+                .product-price span {
+                font-size: 22px;
+                font-weight: bold;
+                color: #555;
+                }
+
+                .product-info h2 {
+                font-size: 24px;
+                margin-top: 10px;
+                color: #333;
+                }
+
+                /* Card styling for compact layout */
+                .product-detail-card {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                padding: 15px;
+                background-color: #fff;
+                margin-top: 20px;
+                overflow: hidden;
+                transition: transform 0.3s ease;
+                }
+
+                .product-detail-card:hover {
+                transform: translateY(-5px);
+                }
+
+                .product-detail-card .card-body {
+                padding: 15px;
+                }
+
+                /* Layout adjustment */
+                .row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                }
+
+                .product-image-3d {
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                margin-bottom: 10px;
+                }
+
+                .col-md-6 {
+                flex: 1;
+                max-width: 48%;
+                }
+
+                .col-md-6 img {
+                max-width: 100%;
+                height: auto;
+                }
+
+            </style>
+            <div class="container">
+                <!-- Breadcrumb Section -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/product_product">Template Products</a>
+                        </li>
+                        <t t-if="category_name">
+                            <li class="breadcrumb-item">
+                                <a t-att-href="'/shop/category/' + str(category_id)">
+                                    <t t-esc="category_name"/>
+                                </a>
+                            </li>
+                        </t>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <t t-esc="product.name"/>
+                        </li>
+                    </ol>
+                </nav>
+                <div class="product-detail-card">
+                    <h1 class="product-title">
+                        <t t-esc="product.name"/>
+                    </h1>
+                    <div class="row">
+                        <!-- Product Image Section -->
+                        <div class="col-md-6">
+                            <div class="product-image-3d">
+                                <img t-att-src="'/web/image/product.product/' + str(product.id) + '/image_1920'"
+                                     class="img-fluid product-image" alt="Product Image"/>
+                            </div>
+                        </div>
+
+                        <!-- Product Info Section -->
+                        <div class="col-md-6 product-info">
+                            <h2>Details</h2>
+                            <p>
+                                <strong>Description:</strong>
+                                <t t-esc="product.description_sale or 'No description available'"/>
+                            </p>
+                            <p>
+                                <strong>Price:</strong>
+                                <span class="product-price">
+                                    <t t-esc="product.currency_id.symbol"/>
+                                    <t t-esc="product.lst_price"/>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

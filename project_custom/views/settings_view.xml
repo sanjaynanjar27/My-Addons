@@ -9,10 +9,10 @@
             <xpath expr="//form[hasclass('oe_form_configuration')]" position="inside">
                 <div class="app_settings_block" data-string="Set Credit Limit Globally"
                      string="Credit Limit" data-key="credit_limit_global">
-                    <h2 style="color: #4A90E2; margin-bottom: 10px; font-weight: bold;">
+                    <h2 style="color: #020202; margin-bottom: 10px; font-weight: bold;">
                         Global Credit Limit Configuration
                     </h2>
-                    <div class="row mt16 mb16">
+                    <div class="row mt16 o_settings_container">
                         <div class="col-6">
                             <label for="global_credit_limit" style="font-size: 14px; font-weight: 600; color: #333333;">
                                 Set Global Credit Limit

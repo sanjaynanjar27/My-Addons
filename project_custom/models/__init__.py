@@ -11,3 +11,6 @@ from . import settings
 from . import purchase_order
 from . import account_analytic_line
 from . import discuss_channel_members
+from . import stock_picking
+from . import product_review
+from . import product_product

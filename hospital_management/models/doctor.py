@@ -12,6 +12,7 @@ class Doctor(models.Model):
     _description = "About Doctor"
     _inherit = ["mail.thread"]
 
+    initial_id = fields.Many2one('name.initials',string="Initial")
     name = fields.Char(string="Doctor", tracking=True)
     expertise = fields.Char(string="Expertise", tracking=True)
     image = fields.Binary(string="Image")

@@ -1,37 +1,36 @@
-odoo.define('project_custom.review_system', function(require) {
-  "use strict";
+/** @odoo-module */
 
-  // Function to update the rating
-  function gfg(n) {
-    let stars = document.getElementsByClassName("star");
-    let output = document.getElementById("output");
-    remove();
+const { Component, xml } = owl;
+import { registry } from "@web/core/registry";
+import { useState } from "@odoo/owl";
 
-    // Assign classes based on the rating
-    for (let i = 0; i < n; i++) {
-      if (n == 1) cls = "one";
-      else if (n == 2) cls = "two";
-      else if (n == 3) cls = "three";
-      else if (n == 4) cls = "four";
-      else if (n == 5) cls = "five";
+class StarRatingComponent extends Component {
+  static template = "project_custom.StarRatingTemplate";
 
-      stars[i].className = "star " + cls;
-    }
-
-    // Update the output text
-    output.innerText = "Rating is: " + n + "/5";
+  constructor() {
+    super(...arguments);
+    this.state = useState({
+      currentRating: 0,
+      ratingHistory: [],
+    });
   }
 
-  // Function to remove the pre-applied class styles
-  function remove() {
-    let i = 0;
-    while (i < 5) {
-      let stars = document.getElementsByClassName("star");
-      stars[i].className = "star";
-      i++;
+  setRating(rating) {
+    this.state.currentRating = rating;
+  }
+
+  saveRating() {
+    if (this.state.currentRating > 0) {
+      this.state.ratingHistory.push(this.state.currentRating);
+      this.state.currentRating = 0; // Reset current rating
     }
   }
 
-  // Expose the function globally (optional in case of modular code)
-  window.gfg = gfg;
-});
+  deleteRating(index) {
+    this.state.ratingHistory.splice(index, 1); // Remove the rating at the given index
+  }
+}
+
+registry
+  .category("actions")
+  .add("project_custom.star_rating", StarRatingComponent);

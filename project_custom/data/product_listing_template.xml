@@ -1,0 +1,239 @@
+<odoo>
+    <template id="product_listing_template_2" name="Product Listing">
+        <t t-call="website.layout">
+            <style>
+                .card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border-radius: 15px;
+                }
+                .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                }
+
+                .input-group .form-control {
+                border-radius: 25px;
+                }
+
+                .input-group-append .btn {
+                border-radius: 25px;
+                background-color: #007bff;
+                border-color: #007bff;
+                color: white;
+                }
+
+                .input-group-append .btn:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+                }
+
+                .card-title {
+                color: #333;
+                font-weight: bold;
+                margin-bottom: 15px;
+                }
+
+                .card-body {
+                padding: 20px;
+                }
+
+                .btn-primary {
+                background-color: #28a745;
+                border-color: #28a745;
+                border-radius: 25px;
+                font-weight: bold;
+                }
+
+                .btn-primary:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+                }
+
+                .card-text {
+                font-size: 14px;
+                color: #6c757d;
+                margin-bottom: 10px;
+                }
+
+                .text-center {
+                text-align: center;
+                }
+
+                /* Adjust responsiveness for small screens */
+                @media (max-width: 767px) {
+                .col-md-4 {
+                max-width: 100%;
+                }
+                }
+
+                /* Horizontal scroll for category buttons */
+                .category-filter-buttons {
+                display: flex;
+                overflow-x: auto;
+                white-space: nowrap;
+                }
+
+                .category-btn {
+                white-space: nowrap;
+                margin: 5px;
+                }
+
+                .category-btn:hover {
+                cursor: pointer;
+                }
+
+                .category-btn {
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+                border-radius: 25px; /* Smooth edges for buttons */
+                padding: 10px 20px; /* Adjust padding for a balanced look */
+                font-weight: bold;
+                color: #714b67;
+                background-color: #fff; /* White background for contrast */
+                }
+
+                .category-btn:hover {
+                transform: translateY(-3px); /* Slight lift on hover */
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+                background-color: #714b67; /* Change background color on hover */
+                color: #fff; /* White text on hover */
+                }
+
+                .category-filter-buttons {
+                display: flex;
+                gap: 10px; /* Spacing between buttons */
+                overflow-x: auto; /* Horizontal scroll if needed */
+                padding: 5px 0; /* Add padding for spacing */
+                }
+
+            </style>
+            <div class="container mt-5">
+                <div class="row">
+                    <!-- Sticky Left Menu -->
+                    <div class="col-md-3 sticky-menu">
+                        <h5>Filters</h5>
+                        <div class="filter-section">
+                            <form t-att-action="'/search_filter'" method="post" id="search-form">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search Products"
+                                           id="search-bar" name="name_search" aria-label="Search Products"
+                                           autocomplete="off"/>
+                                </div>
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            </form>
+                        </div>
+                        <hr/>
+                        <!-- Products Filter Section -->
+                        <div class="filter-section">
+                            <label for="probability">Price Range :</label>
+                            <input type="range" class="form-range" min="0" max="1000" step="50" id="priceRange"
+                                   oninput="document.getElementById('percentageDisplay').innerText = this.value + '$'"/>
+                            <small class="form-text text-muted">
+                                <span id="percentageDisplay">300$</span>
+                                <span id="percentageDisplay">- 1000$</span>
+                            </small>
+                        </div>
+                        <hr/>
+                        <div class="filter-section"
+                             style="display: flex;align-items: center;justify-content: center;margin-top: 20px;margin-bottom: 20px;">
+                            <label for="product-type" class="selection-label"
+                                   style="font-size: 16px;font-weight: bold;margin-right: 10px;color: #714b67;">Choose
+                                Product Type:
+                            </label>
+                            <select id="product-type" class="custom-select"
+                                    style="width: 250px;padding: 10px 15px;font-size: 16px;border: 2px solid #714b67;border-radius: 25px;background-color: #f9f9f9;color: #333;transition: border-color 0.3s ease, box-shadow 0.3s ease;">
+                                <option value="-">Select</option>
+                                <option value="product_template">Product Template</option>
+                                <option value="product_variant">Product Variant</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Products Category List -->
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex justify-content-start align-items-center">
+                                    <div class="category-filter-buttons" style="overflow-x: auto; white-space: nowrap;">
+                                        <t t-foreach="categories" t-as="category">
+                                            <button class="btn btn-outline-primary category-btn"
+                                                    t-att-data-category-id="category.id"
+                                                    style="margin: 0 5px;">
+                                                <t t-esc="category.name"/>
+                                            </button>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Products List -->
+                        <div class="row" id="product-list">
+                            <t t-foreach="products" t-as="product">
+                                <!-- Adjusted to fit 4 products in one row -->
+                                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 product-item"
+                                     t-att-data-category-id="product.categ_id.id">
+                                    <a t-att-href="'/product_detail/' + str(product.id)"
+                                       style="text-decoration: none; color: inherit;">
+                                        <div class="card shadow-sm border-0 rounded-lg overflow-hidden"
+                                             style="height: 100%; max-width: 95%;">
+                                            <img t-att-src="'/web/image/product.product/' + str(product.id) + '/image_1920'"
+                                                 class="card-img-top" alt="Product Image"
+                                                 style="height: 150px; object-fit: cover;"/>
+                                            <div class="card-body" style="padding: 10px;">
+                                                <h5 class="card-title"
+                                                    style="font-size: 18px; font-weight: 600; color: #333; margin-bottom: 10px;">
+                                                    <t t-esc="product.name"/>
+                                                </h5>
+                                                <p class="card-text text-muted"
+                                                   style="font-size: 12px; margin-bottom: 10px;">
+                                                    <t t-esc="product.description_sale or 'No description available'"/>
+                                                </p>
+                                                <!-- Price Section -->
+                                                <p class="card-text text-success"
+                                                   style="font-size: 16px; font-weight: bold; margin-bottom: 0;">
+                                                    <t t-esc="product.currency_id.symbol"/>
+                                                    <t t-esc="product.lst_price"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <t t-extend="website.layout">
+                <t t-jquery="head" t-operation="append">
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                        document.querySelectorAll('.category-btn').forEach(function(button) {
+                        button.addEventListener('click', function() {
+                        var categoryId = this.getAttribute('data-category-id');
+
+                        document.querySelectorAll('.product-item').forEach(function(product) {
+                        product.style.display = 'none';
+                        });
+
+                        document.querySelectorAll('.product-item').forEach(function(product) {
+                        if (product.getAttribute('data-category-id') === categoryId) {
+                        product.style.display = 'block'; }
+                        });
+                        });
+                        });
+                        document.getElementById('product-type').addEventListener('change', function() {
+                        var selectedValue = this.value;
+                        if (selectedValue === 'product_template') {
+                        window.location.href = '/shop';
+                        } else if (selectedValue === 'product_variant') {
+                        window.location.href = '/product_product';
+                        }
+                        });
+                        });
+                    </script>
+                </t>
+            </t>
+
+        </t>
+    </template>
+</odoo>

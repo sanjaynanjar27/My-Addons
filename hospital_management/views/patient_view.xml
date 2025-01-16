@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="reference"/>
+                <field name="initial_id"/>
                 <field name="name" optional="show"/>
                 <field name="gender" optional="show"/>
                 <field name="phone" widget="phone"/>
@@ -42,6 +43,7 @@
                             name="action_new_appointment"
                             type="object"/>
 
+                    <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -58,6 +60,7 @@
                             <!-- General Information Tab -->
                             <group name="Patient Information">
                                 <group string="Basic Details">
+                                    <field name="initial_id" />
                                     <field name="name" placeholder="Enter Full Name.." class="oe_inline"/>
                                     <field name="gender" widget="radio"/>
                                     <field name="phone" widget="phone"/>

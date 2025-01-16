@@ -1,0 +1,9 @@
+.o_horizontal_radio .o_radio_field input[type="radio"] {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.o_horizontal_radio .o_radio_field label {
+    display: inline-block;
+    margin-right: 20px;
+}

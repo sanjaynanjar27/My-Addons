@@ -23,7 +23,6 @@
             'owl_task/static/src/css/style.css',
             'owl_task/static/src/js/toDoTask.js',
             'owl_task/static/src/xml/my_list.xml',
-            'owl_task/static/src/js/main.js'
         ],
     },
 }
