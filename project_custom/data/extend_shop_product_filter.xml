@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="products_attributes_inherited_" inherit_id="website_sale.products" active="True"
+                  name="Product Variants">
+            <xpath expr="//div[hasclass('products_attributes_filters')]" position="inside">
+                <div class="filter-section">
+                    <div class="selection-wrapper" style="display: flex;align-items: center;justify-content: center;margin-top: 20px;margin-bottom: 20px;">
+                        <label for="product-type" class="selection-label" style="font-size: 16px;font-weight: bold;margin-right: 10px;color: #714b67;">Choose Product Type:</label>
+                        <select id="product-type" class="custom-select" style="width: 250px;padding: 10px 15px;font-size: 16px;border: 2px solid #714b67;border-radius: 25px;background-color: #f9f9f9;color: #333;transition: border-color 0.3s ease, box-shadow 0.3s ease;">
+                            <option value="-">Select</option>
+                            <option value="product_template">Product Template</option>
+                            <option value="product_variant">Product Variant</option>
+                        </select>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

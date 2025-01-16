@@ -1,0 +1,37 @@
+<templates xml:space="preserve" owl="1">
+    <t t-name="project_custom.StarRatingTemplate">
+        <div style="margin-bottom: 20px;">
+            <h2>Rate This Product</h2>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <t t-foreach="[1, 2, 3, 4, 5]" t-as="star" t-key="star">
+                    <span
+                        t-att-class="state.currentRating >= star ? 'star filled' : 'star'"
+                        t-on-click="() => setRating(star)"
+                        style="font-size: 36px; cursor: pointer; color: #d1d1d1;">
+                        ★
+                    </span>
+                </t>
+            </div>
+            <button
+                t-on-click="saveRating"
+                style="margin-top: 20px; padding: 10px 20px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                Save Rating
+            </button>
+        </div>
+        <div style="margin-top: 30px;">
+            <h3>Rating History</h3>
+            <ul style="list-style-type: none; padding: 0;">
+                <t t-foreach="state.ratingHistory" t-as="rating" t-key="rating">
+                    <li style="font-size: 18px; margin-bottom: 10px;">
+                        <span>Rating: <t t-esc="rating"/> ★</span>
+                        <button
+                            t-on-click="() => deleteRating(loop.index)"
+                            style="margin-left: 10px; color: red; cursor: pointer; background: transparent; border: none;">
+                            ❌
+                        </button>
+                    </li>
+                </t>
+            </ul>
+        </div>
+    </t>
+</templates>
